@@ -1,0 +1,116 @@
+# ===== Release bundles & secrets =====
+# Built Google-Drive asset zips (14GB). Produced by scripts/build_release_bundles.py.
+/dist/
+# Local secrets (Roboflow key, etc.) — copy .env.example -> .env
+.env
+# Large share zips staged at the repo root (uploaded to Drive, not committed)
+/rilis_rectified_pio.zip
+/reports/bprime_full.zip
+# Scratch logs from the release build / master reruns
+/reports/_build_bundles.log
+/reports/_master_rerun.log
+/reports/_master_rerun.err
+
+# ===== Dataset & hasil besar (tidak untuk git) =====
+/data/
+/train model/
+/wheels/
+
+# ===== Dependensi / model vendor (di-clone terpisah) =====
+/vendor/
+/.venv/
+/.venv-mowa/
+/.venv-yolo/
+**/.venv/
+
+# ===== Bobot & checkpoint model =====
+*.pt
+*.pth
+*.onnx
+*.engine
+*.whl
+
+# ===== Paper referensi (PDF, bukan output proyek) =====
+configs/*.pdf
+/papers/
+*.pdf
+
+# ===== Data turunan besar (regenerasi via pipeline; jangan commit) =====
+/features/
+# report CSV besar (ratusan MB); simpan hanya ringkasan kecil di whitelist bawah
+reports/anomalies_consensus.csv
+reports/anomalies_individual.csv
+reports/overlays/
+reports/plots/
+reports/_ultra_val/
+# Panel A/B/B' per-gambar (~728MB, regenerasi via compare_condition_panels.py);
+# hanya simpan *_summary_grid.png + run.log di top-level folder ini
+/reports/condition_panels/*/
+# Output eksperimen MOWA v2 (regenerasi via skrip src/ baru; jangan commit yang berat)
+/reports/bbox_integrity/
+/reports/bbox_integrity_panels/
+/reports/straightness/
+/data/rectified/
+/data/enhanced/
+/data/augmented/
+
+# ===== Cache Python =====
+__pycache__/
+*.pyc
+*.pyo
+
+# ===== Tooling lokal =====
+.claude/
+.ultralytics/
+reports/_ultra_val/
+
+# ===== Log / PID sementara =====
+finetune_out.log
+finetune_err.log
+finetune.pid
+*.tmp
+
+# ===== OS =====
+Thumbs.db
+.DS_Store
+
+# Whitelist ringkasan kecil (angka kunci), tetap abaikan CSV/PNG berat di dalamnya
+!/reports/bbox_integrity/bbox_integrity_summary.json
+!/reports/straightness/*_summary.json
+
+# Scratch driver/log retrain radial (Task 3d, koordinator)
+/reports/_radial_retrain*
+/reports/_run_radial_retrain.py
+
+# Round-trip metric: abaikan CSV/overlay berat, simpan hanya summary
+/reports/roundtrip/*.csv
+/reports/roundtrip/*.png
+!/reports/roundtrip/roundtrip_summary.json
+# Scratch: log/preview kampanye v3
+/reports/_roundtrip_full.log
+/reports/_chart_v3.png
+
+# Slide deck / presentation (excluded from the public repo)
+/presentasi/
+
+# Gambar B fine-tune full-res (regenerasi via render_bprime_full.py); simpan hanya summary
+/reports/bprime_full/*/
+/reports/_bprime_full.log
+!/reports/bprime_full/_summary.json
+
+# Paket rilis dataset rectified untuk dibagikan (1.3GB, jangan commit)
+/rilis_rectified_pio/
+
+# Varian MOWA soften/coarse/pad/mask (regenerasi via driver; berat, jangan commit)
+/data/rectified_coarse/
+/data/rectified_alpha05/
+/data/rectified_pad015/
+/data/rectified_coarse_sam/
+/data/masks_seg/
+/reports/_run_mowa_soften_campaign.py
+/reports/_soften_campaign.log
+/reports/_soften_campaign.err
+/reports/_run_pad015_retrain.py
+/reports/_pad015_retrain.log
+/reports/_pad015_retrain.err
+/train model/runs_pad015/

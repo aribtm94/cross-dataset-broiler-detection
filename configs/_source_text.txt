@@ -1,0 +1,493 @@
+1Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdata
+PIO, a Large-Scale Dataset for 
+Broiler Chicken Detection under 
+Real Poultry Farming Conditions
+Keyla Boniche  1 ✉, Edmanuel Cruz  2,3 ✉, José Carlos Rangel  3,4, Miguel Hidalgo-Rodríguez2 
+& Francisco Gómez-Donoso  5
+Broiler chicken production is a cornerstone of global food security, yet monitoring animals in 
+commercial farms remains challenging due to high stocking densities and variable environmental 
+conditions. Progress in automated monitoring is hindered by the scarcity of domain-specific, publicly 
+available datasets. to address this gap, we present Poultry Images for Object detection (PIO), a 
+dataset designed to support the development and evaluation of computer vision models for poultry 
+farming. PIO comprises 1,487 manually annotated images containing 327,289 instances of broiler 
+chickens, collected from both commercial and prototype poultry houses across different growth stages. 
+The dataset reflects realistic conditions such as variations in morphology, lighting and bird density. 
+annotations were generated using the LabelImg tool, with bounding boxes normalized to image 
+dimensions for compatibility with state-of-the-art detection frameworks. to illustrate its utility, three 
+YOLOv10 variants were trained and evaluated on PIO, demonstrating its suitability for benchmarking 
+object detection models in precision livestock farming contexts, as shown in figure 1.
+Background & Summary
+The growing global demand for poultry products underscores the urgent need to safeguard food security. Y et, 
+despite significant technological progress in agriculture, modern broiler production continues to rely heavily on 
+manual monitoring practices. These labor-intensive processes not only increase operational costs but also reduce 
+accuracy and limit efficiency. As consumption continues to rise, the poultry industry faces a pivotal challenge: 
+how to transition from manual oversight to automated, data-driven management. In this context, researchers 
+have long recognized that many operations in poultry meat processing are physically and cognitively demand
+-
+ing. Automation in such environments provides the dual benefit of increasing productivity while improving the 
+welfare of both workers and animals as shown in Fig. 11.
+At the same time, advances in sensing and computing have opened new possibilities for more precise and 
+humane monitoring. Recent reviews of non-contact detection methods 2—often powered by computer vision 
+and deep learning—have shown remarkable potential for automatically and non-invasively collecting pheno -
+typic information. However, they also noted persistent technical barriers, such as visual occlusion, environmen-
+tal complexity, and high implementation costs.
+To address these challenges, specialized datasets and analytical models have been developed; for instance, 
+an image dataset from a commercial poultry farm in China was assembled using a partially controlled capture 
+methodology
+3. While this dataset contained highly accurate annotations, the limited environmental variability 
+raised concerns about its ability to generalize to more diverse production settings.
+Other efforts have targeted specific behavioral or welfare indicators. For example, Broiler-Net 4 was intro-
+duced as a vision-based system for detecting inactivity and overcrowding in cage-free poultry houses. Y et, due 
+to the absence of public datasets, this approach relied on internet-sourced videos, which inevitably reduced the 
+system’s applicability to real production environments.
+1Facultad de Ingeniería Mecánica, Universidad Tecnológica de Panamá, Panamá City, 0819-07289, Panamá. 2centro 
+Regional de Veraguas, Universidad Tecnológica de Panamá, Atalaya, 0901, Panamá. 3Sistema nacional de investigación 
+(SNI), SENACYT, Panamá City, 0816-02852, Panamá. 4facultad de i ngeniería de Sistemas computacionales, 
+Universidad Tecnológica de Panamá, Panamá City, 0819-07289, Panamá. 5institute for computer Research, University 
+of Alicante, 03080, Alicante, Spain. ✉e-mail: keyla.boniche@utp.ac.pa; edmanuel.cruz@utp.ac.pa
+Data DESCRIP tOR
+OPEN
+
+
+=====PAGE BREAK=====
+
+2Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+Similarly, deep convolutional neural networks have been employed to identify behaviors such as resting, 
+feeding, and postural changes across different growth stages5. Although these models achieved promising accu-
+racy, the controlled experimental environment limited generalization to commercial farms.
+Other contributions have focused on resource use and counting tasks. Segmentation techniques have been 
+applied to monitor how broilers use space and resources 6, achieving robust results despite a small volume of 
+annotated images.
+High-density flock scenarios have been addressed through the creation of the Dense-Chicken dataset, which 
+enables density-map-based counting networks to achieve low errors in congested settings7.
+In parallel, the Chicks4FreeID dataset8 was developed for individual chick identification under neutral back-
+grounds and highly controlled conditions. While valuable for specific applications, its utility remains limited in 
+complex commercial environments.
+More recently, transformer-based architectures have entered the field. It has been demonstrated that these 
+models can achieve real-time detection and tracking in long-term video studies9. However, the absence of truly 
+intensive production conditions leaves open the question of how such systems would perform in the variable 
+and high-density environments of commercial poultry farming.
+Recent work in precision poultry farming highlights both the importance and the challenges of building 
+reliable chicken object detection datasets under real commercial conditions. Complex environments such as 
+caged laying hen houses introduce severe occlusion, uneven illumination, and crowded scenes, which signif
+-
+icantly reduce detection accuracy. Similarly, multimodal approaches have emerged as a promising direction; 
+for instance, a Transformer-based abnormal and dead hen detection framework combining image fusion with 
+RT-DETR enhancements has demonstrated very high precision and mAP performance in low-light, crowded 
+cage conditions
+10. Beyond detection, automated monitoring systems such as ChickTrack enable detection, 
+counting, and tracking of individual birds for welfare assessment in realistic farm environments11. Despite these 
+advances, the field still suffers from a lack of large-scale standardized open-access datasets and consistent bench-
+marks, as emphasized by a recent survey of 20 publicly available poultry vision datasets12. Together, these efforts 
+underline the growing need for high-quality annotated datasets to support robust chicken detection models in 
+precision livestock farming.
+Taken together, these studies reveal a consistent narrative: while progress has been made, the field still lacks 
+large-scale, openly available datasets that capture the variability, density, and environmental conditions of 
+real-world poultry production. Without such resources, it remains difficult to compare methodologies, bench
+-
+mark performance, or develop robust, scalable solutions for precision poultry farming. A comparative summary 
+of the main publicly available datasets and their limitations relative to the present work is provided in Table 1.
+It is against this backdrop that we introduce PIO, a brand-new large-scale dataset collected in both real 
+commercial and experimental poultry houses13. Comprising 1,487 manually annotated images and more than 
+327,289 broiler instances, PIO encompasses high stocking densities (up to 500 birds per image), significant 
+environmental variability, and multiple growth stages. By bridging the gap between controlled research envi
+-
+ronments and the complex realities of poultry production, PIO offers a robust foundation for object detection, 
+counting, behavioral analysis, anomaly detection, and welfare assessment in automated monitoring systems.
+Fig. 1 PIO Dataset Creation: Capture, manual annotation, and processing of 327,289 broiler chicken instances 
+for precision poultry farming.
+
+=====PAGE BREAK=====
+
+3Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+Methods
+This study provides a detailed description of the design, collection, selection, and annotation of images compris-
+ing the PIO dataset13, developed for training object detection models in real poultry farm environments. The 
+primary objective was to capture images representative of diverse operational conditions, including variability 
+in lighting, stocking density, and growth stages, thereby ensuring a robust and versatile dataset.
+The images were obtained from video recordings collected in two distinct physical facilities: a prototype 
+poultry house and a commercial poultry house. Both locations reflect typical production environments, 
+with the prototype facility representing a semi-controlled setting and the commercial facility reflecting a real 
+high-density poultry production environment. Data collection was entirely passive, involving no physical con
+-
+tact or alteration of animal behaviour, in strict adherence to ethical principles of non-intervention.
+Bioethics approval. The research protocol was reviewed by the Institutional Research Bioethics Committee 
+of the Universidad Tecnológica de Panamá and was granted exemption from bioethics evaluation under the iden-
+tification number P-CIBio-056-2025.
+Data Collection
+The commercial poultry house corresponds to the facilities of El Buen Pastor farm, located in the province of 
+Veraguas, Panamá, and represents a real production environment. In contrast, the prototype poultry house was 
+built for experimental purposes in Quebrada Honda, Santiago, replicating similar conditions on a reduced scale. 
+Both facilities were continuously monitored for 24 hours over a six-week period, covering the entire broiler 
+growth cycle, as shown in Fig. 2.
+Dataset Annotation Type Capture Environment Env. Variability
+High 
+Density
+Manual 
+Annotation Main Focus
+3 Bounding boxes Commercial (China), partially 
+controlled Medium No Ye s Accuracy in stable settings
+ChickTrack11 Bounding boxes (Tracking) Realistic farm videos High Ye s Ye s Welfare & activity tracking
+6 Segmentation Resource monitoring Medium No Ye s Space & resource usage
+5 Bounding boxes / Classification Controlled experimental Low No Ye s Behavior recognition
+Dense-Chicken7 Density maps High-density flock Low Ye s Ye s Congested counting
+Chicks4FreeID8 Semantic segmentation Controlled, neutral background Low No Ye s Individual identification
+Broiler-Net6 Bounding boxes Internet-sourced videos High Ye s Ye s Inactivity & overcrowding
+9 Bounding boxes (Tracking) 20-day video study Medium No Ye s Real-time tracking
+Present Work (2025) Bounding boxes Real commercial broiler farm High Ye s Ye s Scalable edge AI monitoring
+10 Multimodal (Visible/Thermal) Caged hen houses High Ye s Ye s Abnormal/Dead hen detection
+Table 1. Comparative summary of relevant broiler chicken detection datasets.
+Fig. 2 Representative views of the poultry houses used in the study: (a) aerial view of the commercial poultry 
+house with the monitoring area highlighted in red; (b) interior of the commercial poultry house showing 
+the feeding lines and installed cameras; (c) interior of the prototype poultry house with broiler chickens and 
+manual drinkers/feeders; (d) exterior view of the prototype poultry house located in a forested area with natural 
+ventilation.
+
+=====PAGE BREAK=====
+
+4Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+The structural conditions of both poultry houses are summarized in Table  2. Key differentiating aspects 
+include the number of cameras, stocking density, covered area, and type of lighting used. Ambient temperatures 
+ranged from 22 °C to 32 °C throughout the capture period.
+Recording equipment and configuration. The capture devices were the Hikvision DS-2CD1027G0-L IP 
+cameras that were used, featuring a native resolution of 1920×1080 pixels, F1.0 aperture, 24/7 colour vision, and 
+H.265+ compression technology. Each unit is IP67-certified for harsh environments. The cameras were installed 
+in an overhead (zenithal) position, at an average height of 2 meters above ground level, recording at 30 fps. This 
+setup enabled full coverage of the space and precise capture of group behavior in the birds.
+Capture frequency and timing. In both the prototype and commercial poultry houses, video capture was 
+conducted continuously over 24 hours a day for a six-week period during 2023, covering the entire broiler pro-
+duction cycle from arrival to the final growth stage. This monitoring recorded a variety of behaviours associated 
+with animal welfare, including feeding, resting, locomotion, and group interactions. Table  3 summarizes the 
+stages of broiler growth, and Fig. 3 presents actual video frames obtained during these stages.
+Data selection. Image extraction from the original videos was performed using a Python script, where 250 
+frames per video were extracted with OpenCV and multiprocessing for parallel processing. The frames were 
+exported in.jpg format and renamed following a structured convention.
+Subsequently, blurred or duplicate content was removed, prioritizing visual diversity by considering differ-
+ent bird ages and sizes, variations in density and positioning, and the presence of contextual elements such as 
+drinkers and shade nets.
+Data annotation
+The image annotation process for the poultry dataset was carried out during 2025. During this period, repre -
+sentative images from both the commercial and prototype poultry houses were carefully selected, considering 
+different scenarios of stocking density, lighting, spatial arrangement, and various stages of broiler growth.
+The images were manually annotated using the LabelImg
+14 tool, which allows the definition of bounding 
+boxes around the objects of interest. For each image, an associated text file was generated containing one line per 
+identified object, following the structure:
+<class_id> <x_center> <y_center> <width> <height>
+All values are normalized between 0 and 1 with respect to the image size. In this study, a single class (0) was 
+used, corresponding to the broiler chicken, as shown in Fig. 4.
+Dataset applications and Usability. The usability of this dataset is centered on its application for 
+real-time monitoring in commercial poultry environments. Unlike datasets captured in controlled laboratory set-
+tings, these images reflect the lighting variations and dust conditions typical of broiler houses in tropical regions. 
+This makes the dataset highly suitable for:
+•	 Behavioral Analysis: Tracking movement patterns to detect early signs of illness or thermal stress.
+•	 Population Density Monitoring: Developing automated systems to evaluate bird distribution and floor space 
+efficacy.
+Parameter Prototype poultry house Commercial poultry house
+Number of cameras 4 36
+Approximate number of broilers 100 700 per frame
+Area dimensions 6 m × 4 m (24 m²) 12 m × 8 m
+Recording schedule 24 hours, continuous 24 hours, continuous
+Type of lighting Mixed (natural, artificial LED) Predominantly natural, nighttime light, LED
+Ambient temperature 22 °C – 32 °C 22 °C – 32 °C
+Estimated stocking density in final stages 6–10 birds/m² 11–14 birds/m²
+Table 2. Comparison of structural and monitoring conditions between the prototype and commercial poultry 
+houses used in this study.
+Stage Age (weeks) Average weight Relevant observations for detection
+Initial 1 150 g Increasing body size; crossings and rapid movements still occur.
+Intermediate 2–3 0.4–1 kg Increasing body size; crossings and rapid movements still occur.
+Final 4–6 1.5–2.54 kg Lower activity and larger body area.
+Table 3. Growth stages of broiler chickens.
+
+=====PAGE BREAK=====
+
+5Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+•	 Edge and Standard AI Development: This dataset is a robust benchmark for training lightweight models 
+optimized for Edge AI platforms and for developing complex architectures in standard high-performance 
+computing environments for large-scale poultry research
+Data Records
+The final dataset consists of 1,487 annotated images containing a total of 327,289 instances. The database was 
+divided into two subsets: 70% of the images were allocated for training and 30% for validation, ensuring that 
+both environments were represented in each partition. All files follow a structured naming convention to guar
+-
+antee direct correspondence. The structure of the annotated dataset is illustrated in code 1 and Fig. 5.
+Fig. 3 Representative views of broiler growth stages captured by overhead cameras: (a) intermediate stage in the 
+prototype poultry house, showing clustering around drinkers; (b) initial stage in the prototype poultry house, 
+with high mobility and dispersed distribution; (c) initial stage in the commercial poultry house, showing high 
+density and movement; (d) final stage, with broilers clustered and exhibiting low mobility, which facilitates 
+detection.
+Fig. 4 Manual annotation process using the LabelImg tool.
+
+=====PAGE BREAK=====
+
+6Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+Code 1. Folder structure of the PIO annotated dataset.
+/images
+/train
+/val
+/labels
+/train
+/val
+Each .txt file contains multiple lines representing the instances detected in a single image. The complete 
+dataset includes a total of 327,289labelled instances. The data are ready to be used directly in YOLO11-based15, 
+training workflows, including a dataset.yaml file that defines the image and label paths as well as the list of avail-
+able classes. The descriptive metadata of the PIO dataset13 are summarized in Table 4 which provides details on 
+dataset composition, source, collection and annotation periods, data formats, annotation structure, and ethical 
+considerations to support reproducibility and responsible use.
+Figure 6 presents a bar chart illustrating the weekly distribution of annotated images in the PIO dataset 13, 
+categorized by poultry house type: commercial and prototype. Each week (W1 to W6) is represented by a pair 
+of adjacent bars corresponding to each environment. A higher proportion of images were collected from the 
+commercial poultry house, particularly during weeks W1, W2, and W6. This selection was deliberate, as these 
+weeks exhibited greater variability in visual conditions—such as high chick density, overlapping individuals, 
+uneven lighting, and structural elements causing occlusions. By prioritizing data collection under such challeng
+-
+ing scenarios, the aim was to train detection models that are more robust to disruptive conditions, thus better 
+reflecting the real-world complexities of intensive poultry farming systems. In contrast, the prototype poultry 
+house offered a more controlled and visually homogeneous environment, which, while useful for comparative 
+testing, posed fewer challenges for automatic detection.
+Figure 7 displays the weekly distribution of the total number of annotated chick instances in the PIO data
+-
+set13, distinguishing between images captured in the commercial poultry house and those from the prototype 
+facility. Weeks are labeled W1 through W6, corresponding to different stages in the broiler growth cycle.
+A notable concentration of instances is observed in the commercial house during weeks W1, W2, and W6. 
+This pattern reflects a deliberate data collection strategy focused on capturing images under more challenging 
+Fig. 5 Folder structure of the annotated dataset.
+Metadata Element Description
+Dataset name PIO: Broiler chicken detection dataset from commercial and prototype poultry houses
+Dataset description Contains 1,487 images with a total of 327,289 manually annotated instances (broiler 
+chickens).
+Data source Videos recorded in two poultry houses: one commercial facility and one prototype 
+experimental monitoring house.
+Collection period 2023
+Data format .jpg and .txt files. Resolution: 1280×720 pixels.
+Annotation period 2025
+Annotation structure .txt files with normalized bounding boxes per image: <class> <x_center> 
+<y_center> <width> <height>
+Ethical and contextual 
+considerations
+The dataset is based on real images of broiler chickens in both commercial and 
+experimental production environments. Responsible use of the data in animal welfare 
+contexts is strongly encouraged.
+Collaboration and usage Researchers are encouraged to use the dataset for developing detection, monitoring, 
+and behaviour analysis solutions, fostering ethical and academic collaboration.
+Table 4. Summarizes what the dataset contains and under which conditions.
+
+=====PAGE BREAK=====
+
+7Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+visual conditions, including high chick density, overlapping individuals, occlusions, and varying lighting condi-
+tions. Such scenarios are important for training robust and generalizable detection models capable of handling 
+the complex visual environments typical of commercial poultry production systems.
+technical Validation
+To support the technical validity of the dataset, inference tests were conducted using the YOLOv1016,17 model 
+on an unseen subset of validation images. The images used for this evaluation correspond to records obtained in 
+2025 from a representative flock in the commercial poultry house, captured under real production conditions.
+Technical validation of the dataset was carried out through an experiment with a convolutional neural network–
+based object detector. YOLOv10 was selected due to its well-recognized effectiveness in fast and accurate detection 
+scenarios. The hardware and software specifications of the experimental environment are detailed in Table 5.
+Evaluation of performance metrics. The performance evaluation of the models on the PIO dataset13 was 
+carried out using standard object detection metrics: precision, recall, and F1-score. These metrics have been widely 
+validated in the specialized literature, where the implications and limitations of different evaluation approaches in 
+computer vision are thoroughly discussed
+18. The evaluation metrics used in this study, including precision, recall, 
+F1-score, and mean Average Precision (mAP) at different IoU thresholds, are summarized in Table 6.
+Hyperparameter configuration. To validate the utility of the proposed dataset for object detection tasks, 
+three variants of the YOLOv10 model were trained: YOLOv10n, YOLOv10s, and YOLOv10m. The training pro-
+cess was conducted in a Linux-based environment using Ultralytics version 8.3.152 and an NVIDIA GeForce 
+RTX 4060 GPU. All models were trained for 100 epochs, as summarized in Table 7.
+Fig. 6 Weekly Image Distribution.
+Fig. 7 Instances per Week.
+
+=====PAGE BREAK=====
+
+8Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+Table 8 compares the performance of two YOLOv10 model variants, specifically YOLOv10s and YOLOv10m, 
+in terms of key training and evaluation metrics. YOLOv10m shows lower training losses (box_loss, cls_loss, and 
+dfl_loss), indicating better model optimization. Moreover, YOLOv10m outperforms YOLOv10s in precision, 
+recall, and accuracy-related metrics such as mAP@50 and mAP@50–95, suggesting superior object detection 
+performance on the validation set.
+Visualization. To support the technical reliability of the dataset, inference tests were performed using the 
+YOLOv10s and YOLOv10m models on an unseen subset of images. These images were obtained in 2025 from the 
+commercial poultry house El Buen Pastor in Veraguas, Panama. The resulting predictions enabled a visual assess-
+ment of the correspondence between the manual annotations and the detections generated by the trained models.
+The visualizations show correct overlap between the predicted bounding boxes and the objects of inter -
+est, even in scenes with high density, morphological variability, and heterogeneous lighting conditions. These 
+Component Specification
+Processor (CPU) Intel® Core™ i9-14900HX 
+(2.20 GHz)
+RAM 32 GB
+GPU NVIDIA RTX 4060 (8 GB VRAM)
+Framework PyTorch 2.1.0
+Model YOLOv10
+CUDA version 12.6
+Table 5. Specifications of the hardware environment used for training.
+Evaluation Metric Symbol Equation Technical Description
+1. Precision P = +P TP
+TP FP
+Proportion of correctly predicted positives over the 
+total number of positive predictions.
+2. Recall R = +R TP
+TP FN
+Proportion of true positives identified with respect to 
+the total number of objects present.
+3. F1-score F₁
+=⋅ ⋅
++F 2 PR
+PR1
+Harmonic mean of precision and recall, summarizing 
+the balance between both metrics.
+4. mAP@50 mAP@50
+mAPA PI oU(0 50)N i
+N
+i50
+1
+1= ∑ ≥.= ∘ Mean Average Precision across all classes, considering 
+a correct prediction if IoU ≥ 0.50.
+5. mAP@50-95 mAP@50-95
+∘ {}mAP mAP, IoU0 50,05 5, ,0 95k k k50:95
+1
+10 1
+10
+IoU= ∑ ∈. .… .=
+Mean Average Precision computed at 10 IoU 
+thresholds (0.50 to 0.95). Measures overall model 
+performance across varying detection strictness levels.
+Table 6. Mathematical definitions and technical description of the evaluation metrics used in the dataset 
+validation.
+Parameter YOLOv10n YOLOv10s YOLOv10m
+Image size 640 × 640 640 × 640 960 × 960
+Learning rate 0.002 0.002 0.02
+Optimizer AdamW AdamW AdamW
+Batch size 4 4 2
+Momentum 0.9 0.9 0.9
+Epochs 100 100 100
+Instances 82,357 82,357 82,357
+Table 7. Hyperparameter configuration used for training with YOLOv10n, YOLOv10s, and YOLOv10m.
+Metric YOLOv10n YOLOv10s YOLOv10m
+Box loss (box_loss) 2.1 1.9 1.6
+Class loss (cls_loss) 0.9 0.8 0.6
+DFL loss (dfl_loss) 1.95 1.9 1.75
+Precision 0.938 0.954 0.961
+Recall 0.84 0.86 0.88
+mAP@50 0.90 0.92 0.97
+mAP@50–95 0.671 0.70 0.76
+Table 8. Performance comparison between YOLOv10s and YOLOv10m models.
+
+=====PAGE BREAK=====
+
+9Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+qualitative observations demonstrate that the dataset contains consistent and suitable annotations for training 
+object detection models, thereby supporting its technical quality and applicability in computer vision contexts 
+for poultry farming environments. Figures 8, 9 and 10 illustrate examples of model predictions under the afore
+-
+mentioned real conditions.
+Data availability
+The Dataset is available at ZENODO13 with the URL https://doi.org/10.5281/zenodo.16686320.
+The dataset includes:
+• Images: 1,487 manually annotated images from prototype and commercial poultry houses in Panama.
+• Annotations: YOLO-format text files containing normalized bounding boxes for broiler chickens.
+• Metadata: Documentation detailing acquisition conditions (lighting, stocking density, growth stage, facility type).
+• Folder structure:
+◦ /images/train – training set images
+◦ /images/val – validation set images
+Fig. 8 Visual results of the YOLOv10n model on an image from the El Buen Pastor commercial poultry house.
+Fig. 9 Visual results of the YOLOv10s model on an image from the El Buen Pastor commercial poultry house.
+Fig. 10 Visual results of the YOLOv10m model on an image from the El Buen Pastor commercial poultry 
+house.
+
+=====PAGE BREAK=====
+
+10Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+◦ /labels/train – corresponding annotations for training images
+◦ /labels/val – corresponding annotations for validation images
+Additionally, a folder with original videos from the poultry houses is provided, allowing the research commu-
+nity to continue labeling, expand the dataset, or explore new computer vision tasks.
+Code availability
+The preprocessing scripts, annotation analysis tools, and training pipelines are hosted in the companion GitHub 
+repository: https://github.com/YESUBZERO/MONZAD-OPI5.
+Received: 17 September 2025; Accepted: 19 March 2026;
+Published: xx xx xxxx
+References
+ 1. Lyu, Y . et al. A review of robotic and automated systems in meat processing. Front. Robot. AI 12, 1578318, https://doi.org/10.3389/
+frobt.2025.1578318 (2025).
+ 2. He, X., Xue, H., Jia, Y ., Xie, Z. & Li, L. Progress and trends of non-contact detection methods for poultry growth information: A 
+review. Poult. Sci. 104, 105281 (2025).
+ 3. Zhuang, X. & Zhang, T. Detection of sick broilers by digital image processing and deep learning. Biosyst. Eng. 179, 106–116 (2019).
+ 4. Ehsan, T. Z. & Mohtavipour, S. M. Broiler-Net: A deep convolutional framework for broiler behavior analysis in poultry houses. 
+Preprint at arXiv https://arxiv.org/abs/2401.12176 (2024).
+ 5. Guo, Y ., Aggrey, S. E., Wang, P ., Oladeinde, A. & Chai, L. Monitoring behaviors of broiler chickens at different ages with deep 
+learning. Animals 12, 3390 (2022).
+ 6. Van Der Eijk, J. A. J. et al. Seeing is caring – automated assessment of resource use of broilers with computer vision techniques. Front. 
+Anim. Sci. 3, 945534 (2022).
+ 7. Lv, J., Wang, J., Peng, C. & Huang, Q. DFCCNet: A dense flock of chickens counting network based on density map regression. 
+Animals 13, 3729 (2023).
+ 8. Kern, D., Schiele, T., Klauck, U. & Ingabire, W . Towards automated chicken monitoring: Dataset and machine learning methods for 
+visual, noninvasive reidentification. Animals 15, 1 (2024).
+ 9. Qi, H. et al. Broiler behavior detection and tracking method based on lightweight transformer. Appl. Sci. 15, 3333 (2025).
+ 10. Yang, J. et al . Multimodal abnormal and dead laying hen detection using transformer-based model. Inf. Process. Agric. 
+S2214317326000065, https://doi.org/10.1016/j.inpa.2026.01.006 (2026).
+ 11. Neethirajan, S. ChickTrack – A quantitative tracking tool for measuring chicken activity. Measurement 191, 110819 (2022).
+ 12. Li, G. A survey of open-access datasets for computer vision in precision poultry farming. Poultry Sci. 104, 104784 (2025).
+ 13. Boniche, K. & Cruz, E. PIO, a large-scale dataset for broiler chicken detection under real poultry farming conditions DATASET v.1. 
+Zenodo https://doi.org/10.5281/zenodo.16686320 (2025).
+ 14. Kale, P . D. Comparative analysis of image annotation tools: Label Img, VGG Annotator, Label Studio, and Roboflow. J. Emerg. 
+Technol. Innov. Res. 11, https://www.jetir.org/view?paper=JETIR2405D59 (2024).
+ 15. Redmon, J. et al. Y ou Only Look Once: Unified, Real-Time Object Detection. Proc. IEEE Conf. Comput. Vis. Pattern Recognit. 
+779–788, https://doi.org/10.1109/CVPR.2016.91 (2016).
+ 16. Wang, A. et al. YOLOv10: Real-Time End-to-End Object Detection. Adv. Neural Inf. Process. Syst. 37, 107984–108011, https://doi.
+org/10.52202/079017-3429 (2024).
+ 17. Sapkota, R. et al. YOLO advances to its genesis: a decadal and comprehensive review of the Y ou Only Look Once (YOLO) series. 
+Artif. Intell. Rev. https://doi.org/10.1007/s10462-025-11253-3 (2024).
+ 18. Padilla, R., Passos, W . L., Dias, T. L. B., Netto, S. L. & Da Silva, E. A. B. A comparative analysis of object detection metrics with a 
+companion open-source toolkit. Electronics 10, 279 (2021).
+acknowledgements
+This dataset was developed as part of the master’s project of the first author, with the support of the Regional 
+Center of Veraguas and the Faculty of Mechanical Engineering at the Universidad Tecnológica de Panamá. This 
+research was partially funded by Secretaría Nacional de Ciencia, Tecnología e Innovación (SENACYT) in support 
+of the Master of Science in Mechanical Engineering program, sixth cohort, under the grant Number 23-2020. 
+Computational infrastructure and resources were provided by the Computer Vision and Artificial Intelligence 
+Laboratory at the Technological University of Panama. Special thanks to the MONZAD project team (IDDS22-
+28) for the technical support provided. JCR and EC are supported by the National Research System (SNI) of 
+SENACYT, Panama.
+author contributions
+K.B. designed the experimental protocol, installed the monitoring equipment, collected and curated the data, 
+annotated the dataset, trained and evaluated the object detection models, and wrote and reviewed the manuscript. 
+E.C. supervised the project, contributed to the experimental design, secured ethical approval, coordinated the 
+infrastructure and computational resources, and reviewed the manuscript. J.C.R. developed the image processing 
+scripts, supported data preprocessing and visualization, and reviewed the manuscript. M.H.-R. contributed to the 
+conceptualization, software development, and formal analysis of the dataset, and reviewed the manuscript. F .G.D. 
+contributed to the selection of the model architecture, analyzed the technical validation results, and reviewed the 
+manuscript.
+Competing interests
+The authors declare no competing interests.
+additional information
+Correspondence and requests for materials should be addressed to K.B. or E.C.
+Reprints and permissions information is available at www.nature.com/reprints.
+
+
+=====PAGE BREAK=====
+
+11Scientific  Data |          (2026) 13:801  | https://doi.org/10.1038/s41597-026-07114-5
+www.nature.com/scientificdatawww.nature.com/scientificdata/
+Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in published maps and 
+institutional affiliations.
+Open Access This article is licensed under a Creative Commons Attribution 4.0 International 
+License, which permits use, sharing, adaptation, distribution and reproduction in any medium or 
+format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Cre-
+ative Commons licence, and indicate if changes were made. The images or other third party material in this 
+article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the 
+material. If material is not included in the article’s Creative Commons licence and your intended use is not per-
+mitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the 
+copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by/4.0/.
+ 
+© The Author(s) 2026

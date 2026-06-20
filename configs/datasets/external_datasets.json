@@ -1,0 +1,72 @@
+{
+  "description": "External datasets for MASSA AYAM Phase 2 generalizability testing. Datasets without age/week use relative anomaly mode only.",
+  "created_at": "2026-06-27",
+  "datasets": [
+    {
+      "dataset_id": "pio_baseline",
+      "display_name": "PIO baseline (current project dataset)",
+      "root": "data",
+      "mode": "absolute_cobb",
+      "class_policy": "include_classes",
+      "include_classes": [0],
+      "image_dirs": ["images/train", "images/val"],
+      "label_dirs": ["labels/train", "labels/val"],
+      "notes": "Baseline PIO dataset. Has C/P-Wx filename metadata and Cobb500 age mapping. Existing pipeline remains authoritative for absolute mode."
+    },
+    {
+      "dataset_id": "nestler_yolo",
+      "display_name": "NESTLER Poultry Behaviour (converted YOLO)",
+      "root": "data/external/nestler_yolo",
+      "mode": "relative",
+      "class_policy": "include_classes",
+      "include_classes": [0],
+      "image_dirs": ["images/val"],
+      "label_dirs": ["labels/val"],
+      "notes": "Converted from video tracks_bbox to YOLO bbox. Sparse/medium density; no age or weight ground truth."
+    },
+    {
+      "dataset_id": "broiler_healthy_sick",
+      "display_name": "Roboflow Broiler Healthy and Sick",
+      "root": "data/external/broiler_healthy_sick",
+      "mode": "relative",
+      "class_policy": "include_classes",
+      "include_classes": [0, 1],
+      "image_dirs": ["train/images", "valid/images", "test/images"],
+      "label_dirs": ["train/labels", "valid/labels", "test/labels"],
+      "notes": "Roboflow segmentation converted to bbox. Two classes healthy/sick; very sparse, usually one object per image. Use as limited-use robustness case, not density case."
+    },
+    {
+      "dataset_id": "broiler_instance_seg",
+      "display_name": "Roboflow Broiler Instance Segmentation (bbox converted)",
+      "root": "data/external/broiler_instance_seg",
+      "mode": "relative",
+      "class_policy": "include_classes",
+      "include_classes": [0],
+      "image_dirs": ["train/images", "valid/images", "test/images"],
+      "label_dirs": ["train/labels", "valid/labels", "test/labels"],
+      "notes": "Broiler-specific Roboflow segmentation converted to bbox. Dense enough for image-level relative anomaly."
+    },
+    {
+      "dataset_id": "chicken_count",
+      "display_name": "Roboflow Chicken Count",
+      "root": "data/external/chicken_count",
+      "mode": "relative",
+      "class_policy": "include_classes",
+      "include_classes": [0],
+      "image_dirs": ["train/images", "valid/images", "test/images"],
+      "label_dirs": ["train/labels", "valid/labels", "test/labels"],
+      "notes": "General chicken counting dataset. Mixed resolutions; useful domain-shift/counting case."
+    },
+    {
+      "dataset_id": "chicken_detection_fum",
+      "display_name": "Roboflow FUM Chicken Detection",
+      "root": "data/external/chicken_detection_fum",
+      "mode": "relative",
+      "class_policy": "include_classes",
+      "include_classes": [0],
+      "image_dirs": ["train/images", "valid/images", "test/images"],
+      "label_dirs": ["train/labels", "valid/labels", "test/labels"],
+      "notes": "Dense chicken detection dataset. Many resolutions; useful high-density generalization case."
+    }
+  ]
+}

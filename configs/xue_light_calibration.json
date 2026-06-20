@@ -1,0 +1,134 @@
+{
+  "method": "Xue-light straight-line calibration probe",
+  "paper_basis": "Learning to Calibrate Straight Lines for Fisheye Image Rectification, CVPR 2019",
+  "status": "completed",
+  "note": "Optional diagnostic. Uses long straight-line support as a proxy for whether Xue/plumb-line calibration is feasible in this barn dataset.",
+  "sampled_images": 20,
+  "total_line_segments": 27852,
+  "total_long_line_segments": 22074,
+  "long_line_support_per_image": 1103.7,
+  "weighted_mean_abs_angle_deg": 32.44,
+  "samples": [
+    {
+      "image": "C-W1-0001.jpg",
+      "line_segments": 1800,
+      "long_line_segments": 1092,
+      "mean_abs_angle_deg": 15.34
+    },
+    {
+      "image": "C-W1-0002.jpg",
+      "line_segments": 1700,
+      "long_line_segments": 1080,
+      "mean_abs_angle_deg": 12.6
+    },
+    {
+      "image": "C-W1-0003.jpg",
+      "line_segments": 1012,
+      "long_line_segments": 746,
+      "mean_abs_angle_deg": 20.49
+    },
+    {
+      "image": "C-W1-0004.jpg",
+      "line_segments": 1082,
+      "long_line_segments": 803,
+      "mean_abs_angle_deg": 19.98
+    },
+    {
+      "image": "C-W1-0005.jpg",
+      "line_segments": 1609,
+      "long_line_segments": 1608,
+      "mean_abs_angle_deg": 44.5
+    },
+    {
+      "image": "C-W1-0006.jpg",
+      "line_segments": 1008,
+      "long_line_segments": 763,
+      "mean_abs_angle_deg": 21.56
+    },
+    {
+      "image": "C-W1-0007.jpg",
+      "line_segments": 941,
+      "long_line_segments": 569,
+      "mean_abs_angle_deg": 27.21
+    },
+    {
+      "image": "C-W1-0008.jpg",
+      "line_segments": 1142,
+      "long_line_segments": 815,
+      "mean_abs_angle_deg": 28.53
+    },
+    {
+      "image": "C-W1-0009.jpg",
+      "line_segments": 1246,
+      "long_line_segments": 873,
+      "mean_abs_angle_deg": 21.68
+    },
+    {
+      "image": "C-W1-0010.jpg",
+      "line_segments": 1564,
+      "long_line_segments": 1169,
+      "mean_abs_angle_deg": 6.78
+    },
+    {
+      "image": "C-W1-0011.jpg",
+      "line_segments": 1148,
+      "long_line_segments": 798,
+      "mean_abs_angle_deg": 21.75
+    },
+    {
+      "image": "C-W1-0012.jpg",
+      "line_segments": 1101,
+      "long_line_segments": 777,
+      "mean_abs_angle_deg": 25.92
+    },
+    {
+      "image": "C-W1-V0001.jpg",
+      "line_segments": 23,
+      "long_line_segments": 3,
+      "mean_abs_angle_deg": 10.97
+    },
+    {
+      "image": "C-W1-V0002.jpg",
+      "line_segments": 1768,
+      "long_line_segments": 1719,
+      "mean_abs_angle_deg": 43.49
+    },
+    {
+      "image": "C-W1-V0003.jpg",
+      "line_segments": 1837,
+      "long_line_segments": 1735,
+      "mean_abs_angle_deg": 42.29
+    },
+    {
+      "image": "C-W1-V0004.jpg",
+      "line_segments": 1768,
+      "long_line_segments": 1751,
+      "mean_abs_angle_deg": 44.17
+    },
+    {
+      "image": "C-W1-V0005.jpg",
+      "line_segments": 1862,
+      "long_line_segments": 1696,
+      "mean_abs_angle_deg": 38.27
+    },
+    {
+      "image": "C-W1-V0006.jpg",
+      "line_segments": 2472,
+      "long_line_segments": 1967,
+      "mean_abs_angle_deg": 22.06
+    },
+    {
+      "image": "C-W1-V0007.jpg",
+      "line_segments": 1337,
+      "long_line_segments": 1013,
+      "mean_abs_angle_deg": 25.3
+    },
+    {
+      "image": "C-W1-V0008.jpg",
+      "line_segments": 1432,
+      "long_line_segments": 1097,
+      "mean_abs_angle_deg": 22.73
+    }
+  ],
+  "recommendation": "Feasible for Xue/plumb-line calibration"
+}
