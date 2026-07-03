@@ -1,0 +1,35 @@
+{
+  "pio_val": {
+    "dataset": "pio_val",
+    "display": "PIO val (in-domain)",
+    "condition": "B' (MOWA rectified + fine-tune rectify-both)",
+    "weights": "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\train model\\runs_rectified\\ft_rectified_yolov8m\\weights\\best.pt",
+    "images_written": 452,
+    "total_predictions": 68226,
+    "mean_predictions_per_image": 150.94,
+    "draw_gt": true,
+    "seconds": 129.94
+  },
+  "broiler_instance_seg": {
+    "dataset": "broiler_instance_seg",
+    "display": "Roboflow broiler_instance_seg (external)",
+    "condition": "B' (MOWA rectified + fine-tune rectify-both)",
+    "weights": "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\train model\\runs_rectified\\ft_rectified_yolov8m\\weights\\best.pt",
+    "images_written": 200,
+    "total_predictions": 10503,
+    "mean_predictions_per_image": 52.52,
+    "draw_gt": true,
+    "seconds": 25.65
+  },
+  "chicken_detection_fum": {
+    "dataset": "chicken_detection_fum",
+    "display": "Roboflow chicken_detection_fum (external)",
+    "condition": "B' (MOWA rectified + fine-tune rectify-both)",
+    "weights": "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\train model\\runs_rectified\\ft_rectified_yolov8m\\weights\\best.pt",
+    "images_written": 326,
+    "total_predictions": 8604,
+    "mean_predictions_per_image": 26.39,
+    "draw_gt": true,
+    "seconds": 45.78
+  }
+}

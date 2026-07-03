@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Anomaly Voting Ensemble</title>
+<style>body{font-family:Arial,sans-serif;margin:24px}table{border-collapse:collapse;margin:12px 0}
+td,th{border:1px solid #ddd;padding:6px 10px;font-size:13px}th{background:#f3f3f3}code{background:#f6f6f6;padding:1px 4px}</style></head><body>
+<h1>Deteksi Anomali — Voting Ensemble (unsupervised)</h1>
+<p>Metode: unsupervised voting ensemble (cattle-outlier paper, adapted). Voter: <code>z_score, iqr_fence, robust_mad, autoencoder(cuda)</code>.
+Ditandai bila &ge; 2 voter setuju. Konteks: per-image if bbox>= 100 else per house-week.</p>
+<table>
+<tr><th>Total bbox</th><td>321427</td></tr>
+<tr><th>Flagged (warning+critical)</th><td>7032 (2.188%)</td></tr>
+<tr><th>Critical (&ge;3 voter)</th><td>3153 (0.981%)</td></tr>
+</table>
+<h2>Tingkat penandaan per voter</h2>
+<table><tr><th>z-score</th><th>IQR</th><th>robust MAD</th><th>AE/percentile</th></tr>
+<tr><td>2.229%</td><td>2.783%</td><td>0.883%</td><td>3.136%</td></tr></table>
+<p style="color:#666;font-size:12px">Anomali di sini adalah outlier relatif dalam konteks gambar/house-week,
+bukan diagnosa medis. Voting mengurangi false-positive dari satu metode tunggal.</p>
+</body></html>

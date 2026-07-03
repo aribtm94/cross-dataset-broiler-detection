@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>A/B: Baseline vs MOWA</title>
+<style>body{font-family:Arial,sans-serif;margin:24px}table{border-collapse:collapse;width:100%}
+td,th{border:1px solid #ddd;padding:6px 8px;font-size:13px;text-align:center}th{background:#f3f3f3}
+h1{margin-bottom:4px}.verdict{font-size:18px;font-weight:700;color:#c00}</style></head><body>
+<h1>Perbandingan A/B — Baseline vs MOWA-rectified</h1>
+<p>Model: <code>best.pt</code> ·
+A = gambar asli · B = MOWA warp · metrik primer = <b>map50_95</b></p>
+<p class="verdict">VERDICT: MOWA WORSE
+(mean Δ map50_95 = -0.0109; better 0 / worse 2 / neutral 1)</p>
+<table><tr><th>Dataset</th><th>Domain</th><th>map50 A</th><th>map50 B</th><th>Δ</th><th>map50_95 A</th><th>map50_95 B</th><th>Δ</th><th>precision A</th><th>precision B</th><th>Δ</th><th>recall A</th><th>recall B</th><th>Δ</th></tr>
+<tr><td>PIO val (in-domain)</td><td>in-domain</td><td>0.8997</td><td>0.9082</td><td style="color:#0a0;font-weight:600">+0.0085</td><td>0.7102</td><td>0.6833</td><td style="color:#c00;font-weight:600">-0.0269</td><td>0.9585</td><td>0.9637</td><td style="color:#0a0;font-weight:600">+0.0052</td><td>0.8879</td><td>0.8909</td><td style="color:#888;font-weight:600">+0.0030</td></tr><tr><td>Roboflow broiler_instance_seg (external)</td><td>external</td><td>0.8107</td><td>0.8558</td><td style="color:#0a0;font-weight:600">+0.0451</td><td>0.5355</td><td>0.5298</td><td style="color:#c00;font-weight:600">-0.0057</td><td>0.8193</td><td>0.8805</td><td style="color:#0a0;font-weight:600">+0.0612</td><td>0.7695</td><td>0.8326</td><td style="color:#0a0;font-weight:600">+0.0631</td></tr><tr><td>Roboflow chicken_detection_fum (external)</td><td>external</td><td>0.1338</td><td>0.1349</td><td style="color:#888;font-weight:600">+0.0012</td><td>0.0582</td><td>0.0582</td><td style="color:#888;font-weight:600">+0.0000</td><td>0.5659</td><td>0.5094</td><td style="color:#c00;font-weight:600">-0.0565</td><td>0.1440</td><td>0.1496</td><td style="color:#0a0;font-weight:600">+0.0056</td></tr>
+</table>
+<p style="color:#666;font-size:12px;margin-top:12px">A = kondisi baseline, B = kondisi MOWA (gambar rectified + label warp). Δ = B − A;
+hijau berarti MOWA lebih baik. Dataset external berbeda domain dari data latih PIO, jadi angka
+absolut rendah adalah sinyal generalisasi, bukan bug.</p>
+</body></html>

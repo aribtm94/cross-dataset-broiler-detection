@@ -1,0 +1,24 @@
+{
+  "method": "DaFIR-light radial correction from radius_norm + depth-light perspective correction from bottom_y_norm.",
+  "radial_factors_by_bin": {
+    "0": 1.3970442907856695,
+    "1": 1.3250123751856278,
+    "2": 1.200018000270004,
+    "3": 1.0634799447627816,
+    "4": 0.8571292519166362,
+    "5": 0.6500247503712555
+  },
+  "perspective_factors_by_bottom_y_bin": {
+    "3": 1.0,
+    "2": 1.0154614278529475,
+    "5": 1.0108551628274423,
+    "1": 1.00987551344801,
+    "4": 1.0,
+    "0": 0.9773687461395923
+  },
+  "bin_count": 6,
+  "notes": [
+    "Radial factor uses median bbox-size ratio per radius bin. It approximates fisheye/radial bias, not full DaFIR flow-map rectification.",
+    "Perspective factor uses median bbox-size ratio per bottom_y bin. It approximates depth/perspective bias, not learned monocular depth reprojection."
+  ]
+}

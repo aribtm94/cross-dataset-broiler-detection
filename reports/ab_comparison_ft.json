@@ -1,0 +1,94 @@
+{
+  "baseline_weights": "train model\\runs_compare\\cmp_yolov8m\\weights\\best.pt",
+  "mowa_weights": "train model\\runs_rectified\\ft_rectified_yolov8m\\weights\\best.pt",
+  "verdict": {
+    "primary_metric": "map50_95",
+    "mean_delta_primary": -0.01087,
+    "overall": "mowa_worse",
+    "per_dataset": [
+      {
+        "dataset": "pio_val",
+        "delta_primary": -0.02692,
+        "label": "worse"
+      },
+      {
+        "dataset": "broiler_instance_seg",
+        "delta_primary": -0.00569,
+        "label": "worse"
+      },
+      {
+        "dataset": "chicken_detection_fum",
+        "delta_primary": 0.0,
+        "label": "neutral"
+      }
+    ],
+    "n_better": 0,
+    "n_worse": 2,
+    "n_neutral": 1
+  },
+  "rows": [
+    {
+      "dataset": "pio_val",
+      "display": "PIO val (in-domain)",
+      "in_domain": true,
+      "base_status": "ok",
+      "mowa_status": "ok",
+      "base_images": 452,
+      "mowa_images": 452,
+      "base_map50": 0.8997,
+      "mowa_map50": 0.90817,
+      "delta_map50": 0.00847,
+      "base_map50_95": 0.71024,
+      "mowa_map50_95": 0.68332,
+      "delta_map50_95": -0.02692,
+      "base_precision": 0.95845,
+      "mowa_precision": 0.96367,
+      "delta_precision": 0.00522,
+      "base_recall": 0.88788,
+      "mowa_recall": 0.89086,
+      "delta_recall": 0.00298
+    },
+    {
+      "dataset": "broiler_instance_seg",
+      "display": "Roboflow broiler_instance_seg (external)",
+      "in_domain": false,
+      "base_status": "ok",
+      "mowa_status": "ok",
+      "base_images": 200,
+      "mowa_images": 200,
+      "base_map50": 0.81072,
+      "mowa_map50": 0.85578,
+      "delta_map50": 0.04506,
+      "base_map50_95": 0.53553,
+      "mowa_map50_95": 0.52984,
+      "delta_map50_95": -0.00569,
+      "base_precision": 0.8193,
+      "mowa_precision": 0.8805,
+      "delta_precision": 0.0612,
+      "base_recall": 0.76952,
+      "mowa_recall": 0.83261,
+      "delta_recall": 0.06309
+    },
+    {
+      "dataset": "chicken_detection_fum",
+      "display": "Roboflow chicken_detection_fum (external)",
+      "in_domain": false,
+      "base_status": "ok",
+      "mowa_status": "ok",
+      "base_images": 326,
+      "mowa_images": 326,
+      "base_map50": 0.13375,
+      "mowa_map50": 0.13493,
+      "delta_map50": 0.00118,
+      "base_map50_95": 0.05823,
+      "mowa_map50_95": 0.05823,
+      "delta_map50_95": 0.0,
+      "base_precision": 0.56592,
+      "mowa_precision": 0.50945,
+      "delta_precision": -0.05647,
+      "base_recall": 0.144,
+      "mowa_recall": 0.1496,
+      "delta_recall": 0.0056
+    }
+  ]
+}

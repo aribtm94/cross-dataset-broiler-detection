@@ -1,0 +1,49 @@
+{
+  "method": "forward (MOWA _apply_full_warp) -> inverse fixed-point (Sánchez dkk. PRL 2015) atas medan backward gabungan D = flow + tps2flow(p+flow); aproksimasi numerik (MOWA forward-only, tanpa invers analitik).",
+  "inv_iters": 5,
+  "tps_cap": 384,
+  "fp16": true,
+  "units": {
+    "recon_mae": "0-255",
+    "recon_psnr": "dB (max=255)",
+    "hole_rate": "fraksi",
+    "edge_loss_rate": "fraksi"
+  },
+  "datasets": {
+    "pio_val": {
+      "n": 452,
+      "recon_mae_mean": 7.127372645574525,
+      "recon_psnr_mean": 27.531320428167987,
+      "hole_rate_mean": 0.07943340672789949,
+      "edge_loss_rate_mean": 0.0,
+      "status": "ok",
+      "display": "PIO val (in-domain)"
+    },
+    "broiler_instance_seg": {
+      "n": 200,
+      "recon_mae_mean": 3.6012919124178775,
+      "recon_psnr_mean": 32.38622846349122,
+      "hole_rate_mean": 0.09065646763890982,
+      "edge_loss_rate_mean": 0.0,
+      "status": "ok",
+      "display": "Roboflow broiler_instance_seg (external)"
+    },
+    "chicken_detection_fum": {
+      "n": 326,
+      "recon_mae_mean": 6.9932129364775415,
+      "recon_psnr_mean": 24.944427031001847,
+      "hole_rate_mean": 0.07289363799239594,
+      "edge_loss_rate_mean": 0.0,
+      "status": "ok",
+      "display": "Roboflow chicken_detection_fum (external)"
+    }
+  },
+  "overall": {
+    "n": 978,
+    "recon_mae_mean": 6.361572838011185,
+    "recon_psnr_mean": 27.66184635821756,
+    "hole_rate_mean": 0.07954858829684418,
+    "edge_loss_rate_mean": 0.0,
+    "status": "ok"
+  }
+}

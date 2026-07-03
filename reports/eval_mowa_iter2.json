@@ -1,0 +1,50 @@
+{
+  "condition": "mowa_rectified",
+  "weights": "train model\\runs_compare\\cmp_yolov8m\\weights\\best.pt",
+  "imgsz": 960,
+  "rectified_root": "data\\rectified_iter2",
+  "datasets": [
+    {
+      "id": "pio_val",
+      "display": "PIO val (in-domain)",
+      "in_domain": true,
+      "status": "ok",
+      "images": 452,
+      "val_dirs": [
+        "data\\rectified_iter2\\pio_val\\images"
+      ],
+      "map50": 0.88507,
+      "map50_95": 0.60176,
+      "precision": 0.95157,
+      "recall": 0.8695
+    },
+    {
+      "id": "broiler_instance_seg",
+      "display": "Roboflow broiler_instance_seg (external)",
+      "in_domain": false,
+      "status": "ok",
+      "images": 200,
+      "val_dirs": [
+        "data\\rectified_iter2\\broiler_instance_seg\\images"
+      ],
+      "map50": 0.73211,
+      "map50_95": 0.39839,
+      "precision": 0.76245,
+      "recall": 0.6962
+    },
+    {
+      "id": "chicken_detection_fum",
+      "display": "Roboflow chicken_detection_fum (external)",
+      "in_domain": false,
+      "status": "ok",
+      "images": 326,
+      "val_dirs": [
+        "data\\rectified_iter2\\chicken_detection_fum\\images"
+      ],
+      "map50": 0.11697,
+      "map50_95": 0.04558,
+      "precision": 0.47513,
+      "recall": 0.13565
+    }
+  ]
+}

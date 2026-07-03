@@ -1,0 +1,52 @@
+{
+  "condition": "baseline",
+  "weights": "train model\\runs_radial\\ft_radial_yolov8m\\weights\\best.pt",
+  "imgsz": 960,
+  "rectified_root": null,
+  "datasets": [
+    {
+      "id": "pio_val",
+      "display": "PIO val (in-domain)",
+      "in_domain": true,
+      "status": "ok",
+      "images": 452,
+      "val_dirs": [
+        "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\data\\images\\val"
+      ],
+      "map50": 0.89945,
+      "map50_95": 0.70388,
+      "precision": 0.95772,
+      "recall": 0.88707
+    },
+    {
+      "id": "broiler_instance_seg",
+      "display": "Roboflow broiler_instance_seg (external)",
+      "in_domain": false,
+      "status": "ok",
+      "images": 200,
+      "val_dirs": [
+        "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\data\\external\\broiler_instance_seg\\train\\images"
+      ],
+      "map50": 0.88099,
+      "map50_95": 0.6075,
+      "precision": 0.9092,
+      "recall": 0.83699
+    },
+    {
+      "id": "chicken_detection_fum",
+      "display": "Roboflow chicken_detection_fum (external)",
+      "in_domain": false,
+      "status": "ok",
+      "images": 326,
+      "val_dirs": [
+        "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\data\\external\\chicken_detection_fum\\test\\images",
+        "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\data\\external\\chicken_detection_fum\\valid\\images",
+        "C:\\Arib\\MASSA AYAM\\generalisasi-ayam-skripsi\\data\\external\\chicken_detection_fum\\train\\images"
+      ],
+      "map50": 0.13991,
+      "map50_95": 0.0653,
+      "precision": 0.49241,
+      "recall": 0.15548
+    }
+  ]
+}

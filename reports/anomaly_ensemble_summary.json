@@ -1,0 +1,24 @@
+{
+  "method": "unsupervised voting ensemble (cattle-outlier paper, adapted)",
+  "voters": [
+    "z_score",
+    "iqr_fence",
+    "robust_mad",
+    "autoencoder(cuda)"
+  ],
+  "vote_majority": 2,
+  "weight_key": "radial_depth_median_estimated_weight_g",
+  "context_rule": "per-image if bbox>= 100 else per house-week",
+  "total_bboxes": 321427,
+  "warning_bboxes": 3879,
+  "critical_bboxes": 3153,
+  "flagged_bboxes": 7032,
+  "flagged_rate_pct": 2.188,
+  "critical_rate_pct": 0.981,
+  "voter_flag_rate_pct": {
+    "v_zscore": 2.229,
+    "v_iqr": 2.783,
+    "v_robust": 0.883,
+    "v_ae": 3.136
+  }
+}

@@ -1,0 +1,4 @@
+condition,dataset,in_domain,images,map50,map50_95,precision,recall,status
+tta,pio_val,True,452,0.8989,0.70757,0.95533,0.88131,ok
+tta,broiler_instance_seg,False,200,0.8812,0.64093,0.90438,0.81939,ok
+tta,chicken_detection_fum,False,326,0.13851,0.0601,0.56206,0.14853,ok

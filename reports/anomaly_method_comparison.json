@@ -1,0 +1,30 @@
+{
+  "total_bboxes": 321427,
+  "ensemble": {
+    "flagged": 7032,
+    "flagged_rate_pct": 2.188,
+    "critical": 3153,
+    "critical_rate_pct": 0.981,
+    "rate_stability_std": 0.0115
+  },
+  "percentile": {
+    "flagged": 10087,
+    "flagged_rate_pct": 3.138,
+    "critical": 3668,
+    "critical_rate_pct": 1.141,
+    "rate_stability_std": 0.00167
+  },
+  "agreement": {
+    "jaccard_flagged": 0.4438,
+    "jaccard_critical": 0.3364,
+    "critical_overlap": 1717,
+    "ensemble_only_critical": 1436,
+    "percentile_only_critical": 1951
+  },
+  "recommended_method": "ensemble",
+  "recommendation_reason": [
+    "stabilitas ensemble > percentile (0.0115 vs 0.00167)",
+    "jaccard critical = 0.3364",
+    "ensemble memakai kesepakatan 4 voter (z, IQR, robust MAD, autoencoder) sehingga lebih tahan terhadap kelemahan satu metode dibanding percentile tunggal"
+  ]
+}

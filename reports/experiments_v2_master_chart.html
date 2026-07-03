@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perbandingan Varian MOWA v2 — Δ mAP50-95 vs Baseline</title>
+<style>
+  :root, .viz-root {
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    /* diverging poles: blue = better, red = worse */
+    --better:         #2a78d6;
+    --worse:          #e34948;
+    --neutral-fill:   #f0efec;
+    --good-ink:       #006300;
+    --crit-ink:       #b5302f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root, .viz-root {
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --better:         #3987e5;
+      --worse:          #e66767;
+      --neutral-fill:   #383835;
+      --good-ink:       #0ca30c;
+      --crit-ink:       #e66767;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 28px 24px 40px;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px 26px;
+    margin-bottom: 22px;
+  }
+  h1 { font-size: 20px; margin: 0 0 2px; letter-spacing: -0.01em; }
+  h2 { font-size: 15px; margin: 0 0 3px; letter-spacing: -0.01em; }
+  .kicker { font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--text-secondary); margin: 0 0 14px; }
+  .sub { font-size: 12.5px; color: var(--text-secondary); margin: 0 0 18px; line-height: 1.5; }
+  .legend { display: flex; gap: 18px; align-items: center; font-size: 12px;
+    color: var(--text-secondary); margin: 4px 0 18px; flex-wrap: wrap; }
+  .legend .item { display: flex; gap: 6px; align-items: center; }
+  .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  /* ---- diverging bar chart ---- */
+  .drow { display: grid; grid-template-columns: 168px 1fr; align-items: center;
+    gap: 12px; margin: 0 0 9px; }
+  .dlabel { font-size: 12.5px; text-align: right; color: var(--text-primary); line-height: 1.2; }
+  .dlabel .tag { display: block; font-size: 10.5px; color: var(--text-muted); }
+  .track { position: relative; height: 30px; }
+  .zero { position: absolute; top: -4px; bottom: -4px; width: 2px;
+    background: var(--baseline); }
+  .bar { position: absolute; top: 5px; height: 20px; border-radius: 4px; }
+  .bar.better { background: var(--better); }
+  .bar.worse  { background: var(--worse); }
+  .bar.neutral { background: var(--baseline); }
+  .bar.zero-bar { background: var(--baseline); }
+  .barval { position: absolute; top: 6px; font-size: 12px; font-weight: 600;
+    font-variant-numeric: tabular-nums; color: var(--text-primary);
+    white-space: nowrap; }
+  .barval.inside { color: #fff; top: 7px; }
+  .axis-note { font-size: 11px; color: var(--text-muted); margin-top: 6px;
+    display: flex; justify-content: space-between; }
+  /* ---- heatmap ---- */
+  table.heat { border-collapse: separate; border-spacing: 3px; width: 100%; }
+  table.heat th { font-size: 11.5px; font-weight: 600; color: var(--text-secondary);
+    padding: 4px 6px; text-align: center; }
+  table.heat th.rowh { text-align: left; font-weight: 600; color: var(--text-primary);
+    width: 176px; }
+  table.heat th.rowh .tag { display:block; font-size:10px; color:var(--text-muted); font-weight:400;}
+  .cell { border-radius: 5px; text-align: center; padding: 11px 4px;
+    font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums;
+    color: var(--text-primary); position: relative; }
+  .cell.base { color: var(--text-muted); font-weight: 500; }
+  /* ---- verdict pills + table ---- */
+  .pill { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 4px; }
+  .pill.better { color: var(--good-ink); background: color-mix(in srgb, var(--better) 15%, transparent); }
+  .pill.worse  { color: var(--crit-ink); background: color-mix(in srgb, var(--worse) 15%, transparent); }
+  .pill.neutral{ color: var(--text-secondary); background: color-mix(in srgb, var(--baseline) 40%, transparent); }
+  .pill.base   { color: var(--text-secondary); background: color-mix(in srgb, var(--baseline) 30%, transparent); }
+  table.data { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  table.data th, table.data td { padding: 8px 10px; text-align: right;
+    border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  table.data th { color: var(--text-secondary); font-weight: 600; font-size: 11.5px;
+    text-transform: uppercase; letter-spacing: 0.04em; }
+  table.data td.name, table.data th.name { text-align: left; font-variant-numeric: normal; }
+  table.data tr.win td { background: color-mix(in srgb, var(--better) 8%, transparent); }
+  .tt { position: fixed; pointer-events: none; z-index: 20; opacity: 0;
+    transition: opacity .1s; background: var(--text-primary); color: var(--surface-1);
+    font-size: 12px; padding: 7px 10px; border-radius: 7px; line-height: 1.45;
+    box-shadow: 0 4px 14px rgba(0,0,0,.28); max-width: 240px; }
+  .tt b { font-weight: 700; }
+  .foot { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+</style>
+</head>
+<body class="viz-root">
+<div class="wrap">
+
+  <div class="card">
+    <p class="kicker">Skripsi — Generalisasi Deteksi Broiler</p>
+    <h1>Perbandingan Varian MOWA v2 vs Baseline</h1>
+    <p class="sub">Metrik primer <b>mAP50-95</b>, rata-rata perubahan (Δ) terhadap baseline di 3 dataset
+      (pio_val, broiler_instance_seg, chicken_detection_fum). Biru = lebih baik dari baseline,
+      merah = lebih buruk. Garis tegak = baseline (Δ = 0). Dead-band verdict ±0.005.</p>
+
+    <div class="legend">
+      <span class="item"><span class="swatch" style="background:var(--better)"></span>Lebih baik (better)</span>
+      <span class="item"><span class="swatch" style="background:var(--worse)"></span>Lebih buruk (worse)</span>
+      <span class="item"><span class="swatch" style="background:var(--baseline)"></span>Baseline / netral</span>
+    </div>
+
+    <h2>Rata-rata Δ mAP50-95 (headline)</h2>
+    <div id="divbars" style="margin-top:14px"></div>
+    <div class="axis-note"><span>← lebih buruk</span><span>baseline</span><span>lebih baik →</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Δ mAP50-95 per dataset (matriks)</h2>
+    <p class="sub" style="margin-bottom:14px">Warna = besar &amp; arah Δ vs baseline per dataset. Sorotan: <b>TTA</b> dan
+      <b>augmentasi radial + retrain</b> yang biru (menang) — keduanya tanpa rektifikasi MOWA, dengan lonjakan
+      besar di broiler (TTA +0.105, radial +0.072). Varian MOWA terbaik, <b>MOWA pad + fine-tune ★</b>,
+      kini praktis <b>menyamai baseline</b> (mean Δ −0.001, netral) dan bahkan <b>menang di broiler (+0.037)</b> —
+      lompatan besar dari varian MOWA sebelumnya, meski secara keseluruhan belum melampaui baseline.</p>
+    <div id="heat"></div>
+    <p class="foot">Nilai = Δ absolut mAP50-95 (varian − baseline). Baris baseline semuanya 0 (acuan).</p>
+  </div>
+
+  <div class="card">
+    <h2>Tabel data (mAP50-95 absolut + verdict)</h2>
+    <table class="data" id="datatable"></table>
+    <p class="foot">Sumber: <code>reports/experiments_v2_master.json</code> +
+      <code>reports/eval_enhanced_orig.json</code> + <code>reports/eval_pad015_ft.json</code>.
+      Diperbarui 2026-07-10 (varian MOWA pad + fine-tune), YOLOv8m, imgsz 960, RTX 4060.</p>
+  </div>
+
+</div>
+<div class="tt" id="tt"></div>
+
+<script>
+// ---- data (exact, from the campaign JSON) ----
+const DS = [
+  {id:'pio_val', label:'PIO val', tag:'in-domain'},
+  {id:'broiler_instance_seg', label:'broiler_instance_seg', tag:'external'},
+  {id:'chicken_detection_fum', label:'chicken_detection_fum', tag:'external, dense'},
+];
+const BASE = {pio_val:0.71024, broiler_instance_seg:0.53553, chicken_detection_fum:0.05823};
+// abs mAP50-95 per variant per dataset
+const V = [
+  {name:'baseline',                 lab:'Baseline',           tag:'gambar asli',              abs:{pio_val:0.71024,broiler_instance_seg:0.53553,chicken_detection_fum:0.05823}, mean:0.0,     verdict:'base'},
+  {name:'tta',                      lab:'TTA (multi-scale+flip)', tag:'tanpa MOWA, tanpa retrain', abs:{pio_val:0.7076,broiler_instance_seg:0.6409,chicken_detection_fum:0.0601}, mean:0.03487, verdict:'better'},
+  {name:'radial_retrain',           lab:'Augmentasi radial + retrain', tag:'adapt detektor, tanpa MOWA', abs:{pio_val:0.7039,broiler_instance_seg:0.6075,chicken_detection_fum:0.0653}, mean:0.02423, verdict:'better'},
+  {name:'mowa_pad015_ft',           lab:'MOWA pad + fine-tune ★', tag:'jaga tepi + rectify-both (BARU)', abs:{pio_val:0.6715,broiler_instance_seg:0.5720,chicken_detection_fum:0.0573}, mean:-0.00107, verdict:'neutral'},
+  {name:'mowa_1pass_ft',            lab:'MOWA + fine-tune',   tag:'rectify-both (full-warp)', abs:{pio_val:0.6833,broiler_instance_seg:0.5298,chicken_detection_fum:0.0582}, mean:-0.01087, verdict:'worse'},
+  {name:'enhanced_orig',            lab:'CLAHE+unsharp saja', tag:'tanpa MOWA',               abs:{pio_val:0.6901,broiler_instance_seg:0.4705,chicken_detection_fum:0.0562}, mean:-0.02905, verdict:'worse'},
+  {name:'mowa_1pass',               lab:'MOWA 1-pass',        tag:'bobot baseline',           abs:{pio_val:0.6383,broiler_instance_seg:0.4565,chicken_detection_fum:0.0491}, mean:-0.05338, verdict:'worse'},
+  {name:'enhanced',                 lab:'MOWA + CLAHE+unsharp', tag:'di atas MOWA',           abs:{pio_val:0.6274,broiler_instance_seg:0.4177,chicken_detection_fum:0.0481}, mean:-0.07025, verdict:'worse'},
+  {name:'mowa_iter2',               lab:'MOWA iteratif 2-pass', tag:'rectify berulang',       abs:{pio_val:0.6018,broiler_instance_seg:0.3984,chicken_detection_fum:0.0456}, mean:-0.08609, verdict:'worse'},
+];
+const fmt = x => (x>=0?'+':'−')+Math.abs(x).toFixed(3);
+const tt = document.getElementById('tt');
+function showTip(e,html){ tt.innerHTML=html; tt.style.opacity=1;
+  const p=12; let x=e.clientX+p, y=e.clientY+p;
+  if(x+tt.offsetWidth>innerWidth) x=e.clientX-tt.offsetWidth-p;
+  if(y+tt.offsetHeight>innerHeight) y=e.clientY-tt.offsetHeight-p;
+  tt.style.left=x+'px'; tt.style.top=y+'px'; }
+function hideTip(){ tt.style.opacity=0; }
+
+// ---- 1) diverging headline bars (mean delta) ----
+(function(){
+  const host = document.getElementById('divbars');
+  const maxAbs = 0.09;                 // symmetric domain
+  const midPct = 50;                   // zero at center
+  const scale = v => (v/maxAbs)*50;    // % half-width
+  V.forEach(v=>{
+    const row=document.createElement('div'); row.className='drow';
+    const lab=document.createElement('div'); lab.className='dlabel';
+    lab.innerHTML=`${v.lab}<span class="tag">${v.tag}</span>`;
+    const track=document.createElement('div'); track.className='track';
+    const zero=document.createElement('div'); zero.className='zero'; zero.style.left=midPct+'%';
+    track.appendChild(zero);
+    const w=Math.abs(scale(v.mean));
+    if(v.verdict==='base'){
+      const val=document.createElement('div'); val.className='barval';
+      val.style.left='calc('+midPct+'% + 8px)'; val.textContent='0.000 (acuan)';
+      val.style.color='var(--text-muted)'; track.appendChild(val);
+    } else {
+      const bar=document.createElement('div');
+      bar.className='bar '+(v.verdict==='neutral'?'neutral':(v.mean>0?'better':'worse'));
+      if(v.mean>0){ bar.style.left=midPct+'%'; bar.style.width=w+'%'; }
+      else { bar.style.left=(midPct-w)+'%'; bar.style.width=w+'%'; }
+      track.appendChild(bar);
+      const val=document.createElement('div'); val.className='barval';
+      val.textContent=fmt(v.mean);
+      // If placing the label outside would collide with the label column
+      // (long negative bars), place it INSIDE the bar, right-aligned.
+      if(v.mean>0){
+        val.style.left='calc('+(midPct+w)+'% + 8px)';
+      } else if(w > 42){
+        val.className='barval inside';
+        val.style.left=(midPct-w)+'%';
+        val.style.paddingLeft='8px';
+      } else {
+        val.style.right='calc('+(100-(midPct-w))+'% + 8px)';
+      }
+      track.appendChild(val);
+    }
+    const per = DS.map(d=>`${d.label}: ${fmt(v.abs[d.id]-BASE[d.id])}`).join('<br>');
+    track.addEventListener('mousemove',e=>showTip(e,
+      `<b>${v.lab}</b><br>mean Δ = <b>${fmt(v.mean)}</b> · ${v.verdict}<br><span style="opacity:.8">${per}</span>`));
+    track.addEventListener('mouseleave',hideTip);
+    row.appendChild(lab); row.appendChild(track); host.appendChild(row);
+  });
+})();
+
+// ---- diverging color ramp for heatmap ----
+function heatColor(d){
+  if(Math.abs(d)<0.0005) return 'var(--neutral-fill)';
+  const t=Math.min(Math.abs(d)/0.14,1);              // 0..1 magnitude
+  const a=(0.18+0.72*t).toFixed(3);
+  const hue = d>0 ? 'var(--better)' : 'var(--worse)';
+  return `color-mix(in srgb, ${hue} ${(a*100).toFixed(0)}%, var(--surface-1))`;
+}
+// ---- 2) heatmap ----
+(function(){
+  const host=document.getElementById('heat');
+  const t=document.createElement('table'); t.className='heat';
+  const thead=document.createElement('tr');
+  thead.innerHTML='<th class="rowh">Varian</th>'+DS.map(d=>`<th>${d.label}<br><span style="font-weight:400;color:var(--text-muted);font-size:10px">${d.tag}</span></th>`).join('');
+  t.appendChild(thead);
+  V.forEach(v=>{
+    const tr=document.createElement('tr');
+    const rh=document.createElement('th'); rh.className='rowh';
+    rh.innerHTML=`${v.lab}<span class="tag">${v.tag}</span>`;
+    tr.appendChild(rh);
+    DS.forEach(d=>{
+      const delta=v.abs[d.id]-BASE[d.id];
+      const td=document.createElement('td');
+      const cell=document.createElement('div');
+      cell.className='cell'+(v.verdict==='base'?' base':'');
+      cell.style.background=heatColor(v.verdict==='base'?0:delta);
+      cell.textContent=v.verdict==='base'?'0.000':fmt(delta);
+      cell.addEventListener('mousemove',e=>showTip(e,
+        `<b>${v.lab}</b> · ${d.label}<br>abs mAP50-95 = <b>${v.abs[d.id].toFixed(4)}</b><br>Δ vs baseline = <b>${fmt(delta)}</b>`));
+      cell.addEventListener('mouseleave',hideTip);
+      td.appendChild(cell); tr.appendChild(td);
+    });
+    t.appendChild(tr);
+  });
+  host.appendChild(t);
+})();
+
+// ---- 3) data table ----
+(function(){
+  const t=document.getElementById('datatable');
+  t.innerHTML='<thead><tr><th class="name">Varian</th>'+
+    DS.map(d=>`<th>${d.label}</th>`).join('')+
+    '<th>mean Δ</th><th class="name">Verdict</th></tr></thead>';
+  const tb=document.createElement('tbody');
+  V.forEach(v=>{
+    const tr=document.createElement('tr'); if(v.verdict==='better') tr.className='win';
+    const pill = v.verdict==='better'?'<span class="pill better">▲ better</span>'
+              : v.verdict==='worse'?'<span class="pill worse">▼ worse</span>'
+              : v.verdict==='neutral'?'<span class="pill neutral">≈ netral</span>'
+              : '<span class="pill base">acuan</span>';
+    tr.innerHTML=`<td class="name">${v.lab}</td>`+
+      DS.map(d=>`<td>${v.abs[d.id].toFixed(4)}</td>`).join('')+
+      `<td><b>${v.verdict==='base'?'—':fmt(v.mean)}</b></td>`+
+      `<td class="name">${pill}</td>`;
+    tb.appendChild(tr);
+  });
+  t.appendChild(tb);
+})();
+</script>
+</body>
+</html>

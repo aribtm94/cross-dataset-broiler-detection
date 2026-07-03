@@ -1,0 +1,4 @@
+dataset,in_domain,base_map50,mowa_map50,delta_map50,base_map50_95,mowa_map50_95,delta_map50_95,base_precision,mowa_precision,delta_precision,base_recall,mowa_recall,delta_recall
+pio_val,True,0.8997,0.90817,0.00847,0.71024,0.68332,-0.02692,0.95845,0.96367,0.00522,0.88788,0.89086,0.00298
+broiler_instance_seg,False,0.81072,0.85578,0.04506,0.53553,0.52984,-0.00569,0.8193,0.8805,0.0612,0.76952,0.83261,0.06309
+chicken_detection_fum,False,0.13375,0.13493,0.00118,0.05823,0.05823,0.0,0.56592,0.50945,-0.05647,0.144,0.1496,0.0056

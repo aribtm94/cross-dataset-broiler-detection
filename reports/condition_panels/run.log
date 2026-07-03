@@ -1,0 +1,63 @@
+[load] baseline: best.pt
+[load] finetune: best.pt
+
+[pio_val] 452 gambar -> C:\Arib\MASSA AYAM\generalisasi-ayam-skripsi\reports\condition_panels\pio_val
+  [infer] A: baseline @ asli ...
+  [infer] B: baseline @ rectified ...
+  [infer] B': fine-tune @ rectified ...
+    25/452 panel
+    50/452 panel
+    75/452 panel
+    100/452 panel
+    125/452 panel
+    150/452 panel
+    175/452 panel
+    200/452 panel
+    225/452 panel
+    250/452 panel
+    275/452 panel
+    300/452 panel
+    325/452 panel
+    350/452 panel
+    375/452 panel
+    400/452 panel
+    425/452 panel
+    450/452 panel
+    452/452 panel
+  [grid] pio_val_summary_grid.png
+
+[broiler_instance_seg] 200 gambar -> C:\Arib\MASSA AYAM\generalisasi-ayam-skripsi\reports\condition_panels\broiler_instance_seg
+  [infer] A: baseline @ asli ...
+  [infer] B: baseline @ rectified ...
+  [infer] B': fine-tune @ rectified ...
+    25/200 panel
+    50/200 panel
+    75/200 panel
+    100/200 panel
+    125/200 panel
+    150/200 panel
+    175/200 panel
+    200/200 panel
+  [grid] broiler_instance_seg_summary_grid.png
+
+[chicken_detection_fum] 326 gambar -> C:\Arib\MASSA AYAM\generalisasi-ayam-skripsi\reports\condition_panels\chicken_detection_fum
+  [infer] A: baseline @ asli ...
+  [infer] B: baseline @ rectified ...
+  [infer] B': fine-tune @ rectified ...
+    25/326 panel
+    50/326 panel
+    75/326 panel
+    100/326 panel
+    125/326 panel
+    150/326 panel
+    175/326 panel
+    200/326 panel
+    225/326 panel
+    250/326 panel
+    275/326 panel
+    300/326 panel
+    325/326 panel
+    326/326 panel
+  [grid] chicken_detection_fum_summary_grid.png
+
+[selesai] output di C:\Arib\MASSA AYAM\generalisasi-ayam-skripsi\reports\condition_panels

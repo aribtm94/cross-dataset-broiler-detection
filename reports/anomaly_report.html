@@ -1,0 +1,271 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Broiler Weight Anomaly Report</title>
+<style>body{font-family:Arial,sans-serif;margin:24px}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{border:1px solid #ddd;padding:6px;font-size:13px}th{background:#f3f3f3}code{background:#f6f6f6;padding:2px 4px}</style></head>
+<body>
+<h1>Broiler Weight Anomaly Report</h1>
+<p>Metode: estimasi berat relatif dari fitur YOLO <code>minor_axis</code> + umur minggu, dikalibrasi ke target Cobb500 As Hatched.</p>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="100%" height="100%" fill="white"/>
+<line x1="60" y1="360" x2="840" y2="360" stroke="#333"/>
+<line x1="60" y1="60" x2="60" y2="360" stroke="#333"/>
+<text x="60.0" y="385" text-anchor="middle" font-size="12">W1</text>
+<text x="216.0" y="385" text-anchor="middle" font-size="12">W2</text>
+<text x="372.0" y="385" text-anchor="middle" font-size="12">W3</text>
+<text x="528.0" y="385" text-anchor="middle" font-size="12">W4</text>
+<text x="684.0" y="385" text-anchor="middle" font-size="12">W5</text>
+<text x="840.0" y="385" text-anchor="middle" font-size="12">W6</text>
+<line x1="60" y1="360.0" x2="840" y2="360.0" stroke="#ddd"/>
+<text x="52" y="364.0" text-anchor="end" font-size="11">0g</text>
+<line x1="60" y1="285.0" x2="840" y2="285.0" stroke="#ddd"/>
+<text x="52" y="289.0" text-anchor="end" font-size="11">908g</text>
+<line x1="60" y1="210.0" x2="840" y2="210.0" stroke="#ddd"/>
+<text x="52" y="214.0" text-anchor="end" font-size="11">1817g</text>
+<line x1="60" y1="135.0" x2="840" y2="135.0" stroke="#ddd"/>
+<text x="52" y="139.0" text-anchor="end" font-size="11">2726g</text>
+<line x1="60" y1="60.0" x2="840" y2="60.0" stroke="#ddd"/>
+<text x="52" y="64.0" text-anchor="end" font-size="11">3635g</text>
+<polyline points="60.0,343.32912434987713 60.0,343.32912434987713 216.0,312.9584201951978 216.0,312.9584201951978 372.0,267.8975384874399 372.0,267.8975384874399 528.0,212.85063720708365 528.0,212.85063720708365 684.0,151.9441707229713 684.0,151.9441707229713 840.0,89.46965157869892 840.0,89.46965157869892" fill="none" stroke="#1f77b4" stroke-width="3"/>
+<polyline points="60.0,343.3448048764787 60.0,343.0155138178451 216.0,313.4288359932458 216.0,313.1102737159712 372.0,267.7539378754042 372.0,266.70416788397074 528.0,216.1567524474001 528.0,210.38219220364218 684.0,155.15620280367816 684.0,153.37439980721206 840.0,93.01592646328197 840.0,87.27272727272731" fill="none" stroke="#d62728" stroke-width="3"/>
+<circle cx="60.0" cy="343.32912434987713" r="5" fill="#1f77b4"><title>Commercial_W1 Cobb 202.0g</title></circle>
+<circle cx="60.0" cy="343.3448048764787" r="5" fill="#d62728"><title>Commercial_W1 Est 201.8g</title></circle>
+<circle cx="216.0" cy="312.9584201951978" r="5" fill="#1f77b4"><title>Commercial_W2 Cobb 570.0g</title></circle>
+<circle cx="216.0" cy="313.1102737159712" r="5" fill="#d62728"><title>Commercial_W2 Est 568.2g</title></circle>
+<circle cx="372.0" cy="267.8975384874399" r="5" fill="#1f77b4"><title>Commercial_W3 Cobb 1116.0g</title></circle>
+<circle cx="372.0" cy="266.70416788397074" r="5" fill="#d62728"><title>Commercial_W3 Est 1130.5g</title></circle>
+<circle cx="528.0" cy="212.85063720708365" r="5" fill="#1f77b4"><title>Commercial_W4 Cobb 1783.0g</title></circle>
+<circle cx="528.0" cy="210.38219220364218" r="5" fill="#d62728"><title>Commercial_W4 Est 1812.9g</title></circle>
+<circle cx="684.0" cy="151.9441707229713" r="5" fill="#1f77b4"><title>Commercial_W5 Cobb 2521.0g</title></circle>
+<circle cx="684.0" cy="153.37439980721206" r="5" fill="#d62728"><title>Commercial_W5 Est 2503.7g</title></circle>
+<circle cx="840.0" cy="89.46965157869892" r="5" fill="#1f77b4"><title>Commercial_W6 Cobb 3278.0g</title></circle>
+<circle cx="840.0" cy="87.27272727272731" r="5" fill="#d62728"><title>Commercial_W6 Est 3304.6g</title></circle>
+<circle cx="60.0" cy="343.32912434987713" r="5" fill="#1f77b4"><title>Prototype_W1 Cobb 202.0g</title></circle>
+<circle cx="60.0" cy="343.0155138178451" r="5" fill="#d62728"><title>Prototype_W1 Est 205.8g</title></circle>
+<circle cx="216.0" cy="312.9584201951978" r="5" fill="#1f77b4"><title>Prototype_W2 Cobb 570.0g</title></circle>
+<circle cx="216.0" cy="313.4288359932458" r="5" fill="#d62728"><title>Prototype_W2 Est 564.3g</title></circle>
+<circle cx="372.0" cy="267.8975384874399" r="5" fill="#1f77b4"><title>Prototype_W3 Cobb 1116.0g</title></circle>
+<circle cx="372.0" cy="267.7539378754042" r="5" fill="#d62728"><title>Prototype_W3 Est 1117.7g</title></circle>
+<circle cx="528.0" cy="212.85063720708365" r="5" fill="#1f77b4"><title>Prototype_W4 Cobb 1783.0g</title></circle>
+<circle cx="528.0" cy="216.1567524474001" r="5" fill="#d62728"><title>Prototype_W4 Est 1742.9g</title></circle>
+<circle cx="684.0" cy="151.9441707229713" r="5" fill="#1f77b4"><title>Prototype_W5 Cobb 2521.0g</title></circle>
+<circle cx="684.0" cy="155.15620280367816" r="5" fill="#d62728"><title>Prototype_W5 Est 2482.1g</title></circle>
+<circle cx="840.0" cy="89.46965157869892" r="5" fill="#1f77b4"><title>Prototype_W6 Cobb 3278.0g</title></circle>
+<circle cx="840.0" cy="93.01592646328197" r="5" fill="#d62728"><title>Prototype_W6 Est 3235.0g</title></circle>
+<text x="680" y="40" font-size="14" fill="#1f77b4">Cobb500 target</text>
+<text x="680" y="62" font-size="14" fill="#d62728">Estimated mean</text>
+<text x="450" y="24" text-anchor="middle" font-size="16" font-weight="bold">Estimated Mean vs Cobb500 Target</text>
+</svg>
+<h2>Ringkasan per grup</h2>
+<table><tr><th>Group</th><th>N</th><th>Cobb g</th><th>Mean Est g</th><th>Diff</th><th>CV</th><th>Anomaly</th><th>Flags</th></tr><tr><td>Commercial_W1</td><td>76495</td><td>202.0</td><td>201.81</td><td>-0.09%</td><td>29.56%</td><td>57907</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Commercial_W2</td><td>93519</td><td>570.0</td><td>568.16</td><td>-0.32%</td><td>29.3%</td><td>72445</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Commercial_W3</td><td>51125</td><td>1116.0</td><td>1130.46</td><td>1.3%</td><td>31.26%</td><td>40091</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Commercial_W4</td><td>43491</td><td>1783.0</td><td>1812.91</td><td>1.68%</td><td>34.68%</td><td>35201</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Commercial_W5</td><td>1778</td><td>2521.0</td><td>2503.67</td><td>-0.69%</td><td>25.92%</td><td>1341</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Commercial_W6</td><td>26480</td><td>3278.0</td><td>3304.62</td><td>0.81%</td><td>32.44%</td><td>21164</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Prototype_W1</td><td>10456</td><td>202.0</td><td>205.8</td><td>1.88%</td><td>17.63%</td><td>5745</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Prototype_W2</td><td>3870</td><td>570.0</td><td>564.3</td><td>-1.0%</td><td>16.24%</td><td>1984</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Prototype_W3</td><td>4090</td><td>1116.0</td><td>1117.74</td><td>0.16%</td><td>19.13%</td><td>2422</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Prototype_W4</td><td>6548</td><td>1783.0</td><td>1742.94</td><td>-2.25%</td><td>21.65%</td><td>3928</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Prototype_W5</td><td>1961</td><td>2521.0</td><td>2482.08</td><td>-1.54%</td><td>23.91%</td><td>1281</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr>
+<tr><td>Prototype_W6</td><td>1614</td><td>3278.0</td><td>3235.03</td><td>-1.31%</td><td>24.52%</td><td>1098</td><td>uniformity_problem_cv_gt_10|high_anomaly_rate</td></tr></table>
+<h2>Top anomalies</h2>
+<table><tr><th>Image</th><th>BBox</th><th>Group</th><th>Est g</th><th>Diff Cobb</th><th>Z</th><th>Flags</th></tr><tr><td>C-W3-0060.jpg</td><td>166</td><td>Commercial_W3</td><td>3752.86</td><td>236.28%</td><td>7.4211</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>240</td><td>Commercial_W1</td><td>544.0</td><td>169.3%</td><td>5.737</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W4-V0020.jpg</td><td>43</td><td>Commercial_W4</td><td>5340.5</td><td>199.52%</td><td>5.6112</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>261</td><td>Commercial_W1</td><td>527.69</td><td>161.23%</td><td>5.4635</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>269</td><td>Commercial_W1</td><td>525.69</td><td>160.24%</td><td>5.43</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>149</td><td>Commercial_W1</td><td>519.28</td><td>157.07%</td><td>5.3225</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0063.jpg</td><td>64</td><td>Prototype_W1</td><td>397.7</td><td>96.88%</td><td>5.2892</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>240</td><td>Commercial_W1</td><td>512.98</td><td>153.95%</td><td>5.2169</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>153</td><td>Commercial_W1</td><td>499.76</td><td>147.41%</td><td>4.9953</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>238</td><td>Commercial_W1</td><td>497.97</td><td>146.52%</td><td>4.9652</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>219</td><td>Commercial_W1</td><td>495.7</td><td>145.4%</td><td>4.9272</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0005.jpg</td><td>9</td><td>Commercial_W1</td><td>494.44</td><td>144.77%</td><td>4.9061</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>205</td><td>Commercial_W1</td><td>493.06</td><td>144.09%</td><td>4.8829</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>242</td><td>Commercial_W1</td><td>492.16</td><td>143.65%</td><td>4.8678</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>241</td><td>Commercial_W1</td><td>490.73</td><td>142.94%</td><td>4.8439</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>212</td><td>Commercial_W1</td><td>490.36</td><td>142.75%</td><td>4.8377</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>234</td><td>Commercial_W1</td><td>487.24</td><td>141.21%</td><td>4.7854</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>241</td><td>Commercial_W1</td><td>485.46</td><td>140.32%</td><td>4.7555</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>239</td><td>Commercial_W1</td><td>484.85</td><td>140.02%</td><td>4.7453</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>245</td><td>Commercial_W1</td><td>484.03</td><td>139.62%</td><td>4.7315</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0079.jpg</td><td>20</td><td>Prototype_W1</td><td>377.09</td><td>86.68%</td><td>4.7211</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>90</td><td>Commercial_W1</td><td>480.86</td><td>138.05%</td><td>4.6784</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>159</td><td>Commercial_W1</td><td>479.65</td><td>137.45%</td><td>4.6581</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>312</td><td>Commercial_W1</td><td>479.64</td><td>137.45%</td><td>4.6579</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>227</td><td>Commercial_W1</td><td>479.02</td><td>137.14%</td><td>4.6475</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>275</td><td>Commercial_W1</td><td>478.75</td><td>137.01%</td><td>4.643</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>240</td><td>Commercial_W1</td><td>478.75</td><td>137.01%</td><td>4.643</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>204</td><td>Commercial_W1</td><td>477.32</td><td>136.3%</td><td>4.619</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>217</td><td>Commercial_W1</td><td>476.95</td><td>136.11%</td><td>4.6128</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>274</td><td>Commercial_W1</td><td>474.71</td><td>135.0%</td><td>4.5753</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>0</td><td>Commercial_W1</td><td>473.84</td><td>134.57%</td><td>4.5607</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>287</td><td>Commercial_W1</td><td>473.82</td><td>134.56%</td><td>4.5604</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>273</td><td>Commercial_W1</td><td>473.82</td><td>134.56%</td><td>4.5604</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>226</td><td>Commercial_W1</td><td>473.03</td><td>134.17%</td><td>4.5471</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>260</td><td>Commercial_W1</td><td>471.46</td><td>133.4%</td><td>4.5208</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>209</td><td>Commercial_W1</td><td>471.15</td><td>133.24%</td><td>4.5156</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W5-0010.jpg</td><td>46</td><td>Prototype_W5</td><td>5156.51</td><td>104.54%</td><td>4.5072</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>191</td><td>Commercial_W1</td><td>470.6</td><td>132.97%</td><td>4.5064</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>97</td><td>Commercial_W1</td><td>469.78</td><td>132.56%</td><td>4.4926</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>156</td><td>Commercial_W1</td><td>468.96</td><td>132.16%</td><td>4.4789</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>262</td><td>Commercial_W1</td><td>466.62</td><td>131.0%</td><td>4.4397</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>142</td><td>Commercial_W1</td><td>466.45</td><td>130.92%</td><td>4.4368</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0049.jpg</td><td>63</td><td>Prototype_W1</td><td>366.14</td><td>81.26%</td><td>4.4193</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>297</td><td>Commercial_W1</td><td>463.54</td><td>129.47%</td><td>4.388</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>261</td><td>Commercial_W1</td><td>463.53</td><td>129.47%</td><td>4.3878</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>240</td><td>Commercial_W1</td><td>463.04</td><td>129.23%</td><td>4.3796</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0049.jpg</td><td>51</td><td>Prototype_W1</td><td>363.84</td><td>80.12%</td><td>4.3559</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>246</td><td>Commercial_W1</td><td>461.29</td><td>128.36%</td><td>4.3503</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>158</td><td>Commercial_W1</td><td>460.58</td><td>128.01%</td><td>4.3384</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>227</td><td>Commercial_W1</td><td>459.59</td><td>127.52%</td><td>4.3218</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>272</td><td>Commercial_W1</td><td>458.79</td><td>127.12%</td><td>4.3084</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>265</td><td>Commercial_W1</td><td>458.79</td><td>127.12%</td><td>4.3084</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>263</td><td>Commercial_W1</td><td>456.84</td><td>126.16%</td><td>4.2757</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0005.jpg</td><td>15</td><td>Commercial_W1</td><td>456.81</td><td>126.14%</td><td>4.2752</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>250</td><td>Commercial_W1</td><td>456.35</td><td>125.92%</td><td>4.2675</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>253</td><td>Commercial_W1</td><td>456.33</td><td>125.9%</td><td>4.2671</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>147</td><td>Commercial_W1</td><td>455.46</td><td>125.48%</td><td>4.2526</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>318</td><td>Commercial_W1</td><td>455.46</td><td>125.48%</td><td>4.2526</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W3-V0005.jpg</td><td>42</td><td>Prototype_W3</td><td>211.48</td><td>-81.05%</td><td>-4.2389</td><td>below_week_average|below_cobb_standard|critical_underweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>231</td><td>Commercial_W1</td><td>454.59</td><td>125.04%</td><td>4.238</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>284</td><td>Commercial_W1</td><td>453.03</td><td>124.27%</td><td>4.2118</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>155</td><td>Commercial_W1</td><td>452.18</td><td>123.85%</td><td>4.1976</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>213</td><td>Commercial_W1</td><td>452.18</td><td>123.85%</td><td>4.1976</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>223</td><td>Commercial_W1</td><td>451.33</td><td>123.43%</td><td>4.1833</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0079.jpg</td><td>61</td><td>Prototype_W1</td><td>357.43</td><td>76.95%</td><td>4.1792</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>30</td><td>Commercial_W1</td><td>451.03</td><td>123.28%</td><td>4.1783</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>238</td><td>Commercial_W1</td><td>450.48</td><td>123.01%</td><td>4.1691</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>242</td><td>Commercial_W1</td><td>450.13</td><td>122.84%</td><td>4.1632</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>101</td><td>Commercial_W1</td><td>449.63</td><td>122.59%</td><td>4.1548</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>232</td><td>Commercial_W1</td><td>449.62</td><td>122.58%</td><td>4.1546</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0005.jpg</td><td>3</td><td>Commercial_W1</td><td>449.51</td><td>122.53%</td><td>4.1528</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>325</td><td>Commercial_W1</td><td>449.3</td><td>122.43%</td><td>4.1493</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>243</td><td>Commercial_W1</td><td>449.3</td><td>122.43%</td><td>4.1493</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>267</td><td>Commercial_W1</td><td>448.75</td><td>122.15%</td><td>4.1401</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W4-V0044.jpg</td><td>91</td><td>Commercial_W4</td><td>4415.22</td><td>147.63%</td><td>4.1394</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>269</td><td>Commercial_W1</td><td>447.88</td><td>121.72%</td><td>4.1255</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>252</td><td>Commercial_W1</td><td>447.88</td><td>121.72%</td><td>4.1255</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>94</td><td>Commercial_W1</td><td>447.74</td><td>121.65%</td><td>4.1231</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>210</td><td>Commercial_W1</td><td>447.0</td><td>121.29%</td><td>4.1107</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>166</td><td>Commercial_W1</td><td>447.0</td><td>121.29%</td><td>4.1107</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W2-0058.jpg</td><td>0</td><td>Commercial_W2</td><td>1249.8</td><td>119.26%</td><td>4.0944</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>299</td><td>Commercial_W1</td><td>445.47</td><td>120.53%</td><td>4.0851</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>150</td><td>Commercial_W1</td><td>445.35</td><td>120.47%</td><td>4.0831</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>204</td><td>Commercial_W1</td><td>445.35</td><td>120.47%</td><td>4.0831</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>231</td><td>Commercial_W1</td><td>445.23</td><td>120.41%</td><td>4.081</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>199</td><td>Commercial_W1</td><td>444.62</td><td>120.11%</td><td>4.0708</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>258</td><td>Commercial_W1</td><td>444.54</td><td>120.07%</td><td>4.0695</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>318</td><td>Commercial_W1</td><td>444.33</td><td>119.96%</td><td>4.066</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>306</td><td>Commercial_W1</td><td>443.77</td><td>119.69%</td><td>4.0566</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>192</td><td>Commercial_W1</td><td>443.73</td><td>119.67%</td><td>4.0559</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>140</td><td>Commercial_W1</td><td>442.91</td><td>119.26%</td><td>4.0421</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W6-0004.jpg</td><td>27</td><td>Prototype_W6</td><td>34.35</td><td>-98.95%</td><td>-4.0351</td><td>below_week_average|below_cobb_standard|critical_underweight</td></tr>
+<tr><td>P-W6-V0012.jpg</td><td>27</td><td>Prototype_W6</td><td>34.35</td><td>-98.95%</td><td>-4.0351</td><td>below_week_average|below_cobb_standard|critical_underweight</td></tr>
+<tr><td>P-W1-V0013.jpg</td><td>41</td><td>Prototype_W1</td><td>352.13</td><td>74.32%</td><td>4.0331</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>209</td><td>Commercial_W1</td><td>442.04</td><td>118.83%</td><td>4.0276</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>262</td><td>Commercial_W1</td><td>441.27</td><td>118.45%</td><td>4.0146</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>202</td><td>Commercial_W1</td><td>441.01</td><td>118.32%</td><td>4.0103</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W4-V0020.jpg</td><td>2</td><td>Commercial_W4</td><td>4333.91</td><td>143.07%</td><td>4.0101</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W6-0034.jpg</td><td>2</td><td>Commercial_W6</td><td>7599.04</td><td>131.82%</td><td>4.0053</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W2-0019.jpg</td><td>89</td><td>Prototype_W2</td><td>197.52</td><td>-65.35%</td><td>-4.0023</td><td>below_week_average|below_cobb_standard|critical_underweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>267</td><td>Commercial_W1</td><td>440.22</td><td>117.93%</td><td>3.997</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>211</td><td>Commercial_W1</td><td>439.6</td><td>117.63%</td><td>3.9867</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>238</td><td>Commercial_W1</td><td>439.43</td><td>117.54%</td><td>3.9838</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>254</td><td>Commercial_W1</td><td>439.43</td><td>117.54%</td><td>3.9838</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>223</td><td>Commercial_W1</td><td>439.41</td><td>117.53%</td><td>3.9835</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>186</td><td>Commercial_W1</td><td>439.41</td><td>117.53%</td><td>3.9835</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0049.jpg</td><td>61</td><td>Prototype_W1</td><td>350.08</td><td>73.31%</td><td>3.9766</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>240</td><td>Commercial_W1</td><td>438.92</td><td>117.29%</td><td>3.9753</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W4-0011.jpg</td><td>238</td><td>Commercial_W4</td><td>4311.41</td><td>141.81%</td><td>3.9743</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>279</td><td>Commercial_W1</td><td>438.76</td><td>117.21%</td><td>3.9726</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>306</td><td>Commercial_W1</td><td>438.76</td><td>117.21%</td><td>3.9726</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0005.jpg</td><td>22</td><td>Commercial_W1</td><td>438.59</td><td>117.12%</td><td>3.9697</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>247</td><td>Commercial_W1</td><td>438.52</td><td>117.09%</td><td>3.9685</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>310</td><td>Commercial_W1</td><td>438.52</td><td>117.09%</td><td>3.9685</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>217</td><td>Commercial_W1</td><td>437.83</td><td>116.75%</td><td>3.957</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>305</td><td>Commercial_W1</td><td>437.62</td><td>116.64%</td><td>3.9535</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>216</td><td>Commercial_W1</td><td>437.62</td><td>116.64%</td><td>3.9535</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W2-0034.jpg</td><td>120</td><td>Commercial_W2</td><td>1226.06</td><td>115.1%</td><td>3.9518</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W2-0049.jpg</td><td>0</td><td>Commercial_W2</td><td>1226.06</td><td>115.1%</td><td>3.9518</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>333</td><td>Commercial_W1</td><td>437.06</td><td>116.37%</td><td>3.9441</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>234</td><td>Commercial_W1</td><td>437.06</td><td>116.37%</td><td>3.9441</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>377</td><td>Commercial_W1</td><td>436.72</td><td>116.2%</td><td>3.9384</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>210</td><td>Commercial_W1</td><td>436.72</td><td>116.2%</td><td>3.9384</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0064.jpg</td><td>6</td><td>Prototype_W1</td><td>348.58</td><td>72.56%</td><td>3.9353</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W2-0023.jpg</td><td>25</td><td>Prototype_W2</td><td>924.81</td><td>62.25%</td><td>3.9338</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>87</td><td>Commercial_W1</td><td>436.2</td><td>115.94%</td><td>3.9296</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>245</td><td>Commercial_W1</td><td>436.2</td><td>115.94%</td><td>3.9296</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>298</td><td>Commercial_W1</td><td>436.2</td><td>115.94%</td><td>3.9296</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W4-0068.jpg</td><td>165</td><td>Commercial_W4</td><td>4277.34</td><td>139.9%</td><td>3.9201</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W4-0102.jpg</td><td>165</td><td>Commercial_W4</td><td>4277.34</td><td>139.9%</td><td>3.9201</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>213</td><td>Commercial_W1</td><td>435.39</td><td>115.54%</td><td>3.9161</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>254</td><td>Commercial_W1</td><td>435.39</td><td>115.54%</td><td>3.9161</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>150</td><td>Commercial_W1</td><td>435.34</td><td>115.51%</td><td>3.9152</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-V0013.jpg</td><td>52</td><td>Prototype_W1</td><td>347.81</td><td>72.18%</td><td>3.9141</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>243</td><td>Commercial_W1</td><td>434.56</td><td>115.13%</td><td>3.9022</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>240</td><td>Commercial_W1</td><td>434.56</td><td>115.13%</td><td>3.9022</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>208</td><td>Commercial_W1</td><td>434.56</td><td>115.13%</td><td>3.9022</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>257</td><td>Commercial_W1</td><td>434.46</td><td>115.08%</td><td>3.9005</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>313</td><td>Commercial_W1</td><td>433.59</td><td>114.65%</td><td>3.8859</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>243</td><td>Commercial_W1</td><td>432.93</td><td>114.32%</td><td>3.8748</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0049.jpg</td><td>17</td><td>Prototype_W1</td><td>346.25</td><td>71.41%</td><td>3.8711</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W3-V0011.jpg</td><td>101</td><td>Commercial_W3</td><td>2498.08</td><td>123.84%</td><td>3.8702</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W2-0041.jpg</td><td>259</td><td>Commercial_W2</td><td>1212.36</td><td>112.7%</td><td>3.8695</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>296</td><td>Commercial_W1</td><td>432.06</td><td>113.89%</td><td>3.8602</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>280</td><td>Commercial_W1</td><td>432.06</td><td>113.89%</td><td>3.8602</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>206</td><td>Commercial_W1</td><td>432.05</td><td>113.89%</td><td>3.8601</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>281</td><td>Commercial_W1</td><td>431.81</td><td>113.77%</td><td>3.856</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0079.jpg</td><td>13</td><td>Prototype_W1</td><td>345.49</td><td>71.03%</td><td>3.8501</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>173</td><td>Commercial_W1</td><td>430.92</td><td>113.33%</td><td>3.8411</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>288</td><td>Commercial_W1</td><td>430.92</td><td>113.33%</td><td>3.8411</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>265</td><td>Commercial_W1</td><td>430.66</td><td>113.2%</td><td>3.8368</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>300</td><td>Commercial_W1</td><td>430.66</td><td>113.2%</td><td>3.8368</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>229</td><td>Commercial_W1</td><td>430.66</td><td>113.2%</td><td>3.8368</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>264</td><td>Commercial_W1</td><td>430.01</td><td>112.88%</td><td>3.8259</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>196</td><td>Commercial_W1</td><td>430.01</td><td>112.88%</td><td>3.8259</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>275</td><td>Commercial_W1</td><td>430.01</td><td>112.88%</td><td>3.8259</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>236</td><td>Commercial_W1</td><td>430.01</td><td>112.88%</td><td>3.8259</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>98</td><td>Commercial_W1</td><td>429.49</td><td>112.62%</td><td>3.8172</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0052.jpg</td><td>62</td><td>Prototype_W1</td><td>344.23</td><td>70.41%</td><td>3.8154</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>220</td><td>Commercial_W1</td><td>428.67</td><td>112.21%</td><td>3.8034</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>297</td><td>Commercial_W1</td><td>428.67</td><td>112.21%</td><td>3.8034</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>251</td><td>Commercial_W1</td><td>428.67</td><td>112.21%</td><td>3.8034</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>256</td><td>Commercial_W1</td><td>428.63</td><td>112.19%</td><td>3.8027</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>230</td><td>Commercial_W1</td><td>428.63</td><td>112.19%</td><td>3.8027</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>268</td><td>Commercial_W1</td><td>428.34</td><td>112.05%</td><td>3.7979</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W2-0010.jpg</td><td>28</td><td>Commercial_W2</td><td>1196.84</td><td>109.97%</td><td>3.7763</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>226</td><td>Commercial_W1</td><td>427.02</td><td>111.4%</td><td>3.7757</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>156</td><td>Commercial_W1</td><td>426.89</td><td>111.33%</td><td>3.7736</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>154</td><td>Commercial_W1</td><td>426.89</td><td>111.33%</td><td>3.7736</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>249</td><td>Commercial_W1</td><td>426.74</td><td>111.26%</td><td>3.771</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>225</td><td>Commercial_W1</td><td>426.19</td><td>110.98%</td><td>3.7618</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>264</td><td>Commercial_W1</td><td>426.03</td><td>110.91%</td><td>3.7591</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>197</td><td>Commercial_W1</td><td>426.01</td><td>110.89%</td><td>3.7588</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>257</td><td>Commercial_W1</td><td>426.0</td><td>110.89%</td><td>3.7586</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W2-0024.jpg</td><td>73</td><td>Prototype_W2</td><td>908.55</td><td>59.4%</td><td>3.7564</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>112</td><td>Commercial_W1</td><td>425.35</td><td>110.57%</td><td>3.7477</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>243</td><td>Commercial_W1</td><td>425.35</td><td>110.57%</td><td>3.7477</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>228</td><td>Commercial_W1</td><td>425.34</td><td>110.56%</td><td>3.7476</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W4-0008.jpg</td><td>255</td><td>Commercial_W4</td><td>4164.82</td><td>133.58%</td><td>3.7411</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0098.jpg</td><td>221</td><td>Commercial_W1</td><td>424.69</td><td>110.24%</td><td>3.7367</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0005.jpg</td><td>53</td><td>Commercial_W1</td><td>424.53</td><td>110.16%</td><td>3.734</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0094.jpg</td><td>96</td><td>Commercial_W1</td><td>424.49</td><td>110.15%</td><td>3.7333</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>261</td><td>Commercial_W1</td><td>424.39</td><td>110.09%</td><td>3.7317</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0005.jpg</td><td>50</td><td>Commercial_W1</td><td>424.33</td><td>110.07%</td><td>3.7306</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0096.jpg</td><td>235</td><td>Commercial_W1</td><td>423.93</td><td>109.86%</td><td>3.7239</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>311</td><td>Commercial_W1</td><td>423.58</td><td>109.69%</td><td>3.7181</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W6-0033.jpg</td><td>30</td><td>Commercial_W6</td><td>7287.34</td><td>122.31%</td><td>3.7146</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W2-0004.jpg</td><td>87</td><td>Prototype_W2</td><td>223.95</td><td>-60.71%</td><td>-3.7139</td><td>below_week_average|below_cobb_standard|critical_underweight</td></tr>
+<tr><td>P-W2-0010.jpg</td><td>87</td><td>Prototype_W2</td><td>223.95</td><td>-60.71%</td><td>-3.7139</td><td>below_week_average|below_cobb_standard|critical_underweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>308</td><td>Commercial_W1</td><td>423.31</td><td>109.56%</td><td>3.7135</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0061.jpg</td><td>20</td><td>Prototype_W1</td><td>340.41</td><td>68.52%</td><td>3.7101</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>228</td><td>Commercial_W1</td><td>422.78</td><td>109.3%</td><td>3.7047</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0097.jpg</td><td>309</td><td>Commercial_W1</td><td>422.42</td><td>109.12%</td><td>3.6986</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>24</td><td>Commercial_W1</td><td>422.4</td><td>109.11%</td><td>3.6983</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0099.jpg</td><td>299</td><td>Commercial_W1</td><td>422.39</td><td>109.1%</td><td>3.6981</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W3-0060.jpg</td><td>14</td><td>Commercial_W3</td><td>2435.71</td><td>118.25%</td><td>3.6937</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W4-0075.jpg</td><td>41</td><td>Prototype_W4</td><td>3136.74</td><td>75.92%</td><td>3.6929</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0100.jpg</td><td>239</td><td>Commercial_W1</td><td>421.95</td><td>108.89%</td><td>3.6907</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>P-W1-0079.jpg</td><td>70</td><td>Prototype_W1</td><td>339.63</td><td>68.13%</td><td>3.6886</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr>
+<tr><td>C-W1-0095.jpg</td><td>239</td><td>Commercial_W1</td><td>421.61</td><td>108.72%</td><td>3.685</td><td>above_week_average|above_cobb_standard|critical_overweight</td></tr></table>
+</body></html>

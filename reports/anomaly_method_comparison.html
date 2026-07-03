@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Anomaly Method Comparison</title>
+<style>body{font-family:Arial,sans-serif;margin:24px}table{border-collapse:collapse;margin:12px 0}
+td,th{border:1px solid #ddd;padding:6px 10px;font-size:13px;text-align:center}th{background:#f3f3f3}
+.rec{font-size:17px;font-weight:700;color:#0a0}</style></head><body>
+<h1>Perbandingan Metode Anomali — Ensemble vs Percentile</h1>
+<p class="rec">REKOMENDASI: ENSEMBLE</p>
+<ul><li>stabilitas ensemble > percentile (0.0115 vs 0.00167)</li><li>jaccard critical = 0.3364</li><li>ensemble memakai kesepakatan 4 voter (z, IQR, robust MAD, autoencoder) sehingga lebih tahan terhadap kelemahan satu metode dibanding percentile tunggal</li></ul>
+<table>
+<tr><th>Metode</th><th>Flagged %</th><th>Critical %</th><th>Rate stability (std, kecil=stabil)</th></tr>
+<tr><td>Ensemble (voting)</td><td>2.188%</td><td>0.981%</td><td>0.0115</td></tr>
+<tr><td>Percentile P97/P99</td><td>3.138%</td><td>1.141%</td><td>0.00167</td></tr>
+</table>
+<h2>Kesepakatan</h2>
+<table>
+<tr><th>Jaccard flagged</th><th>Jaccard critical</th><th>Critical overlap</th><th>Ensemble-only crit</th><th>Percentile-only crit</th></tr>
+<tr><td>0.4438</td><td>0.3364</td><td>1717</td><td>1436</td><td>1951</td></tr>
+</table>
+<p style="color:#666;font-size:12px">Tanpa ground-truth anomali, "terbaik" dinilai dari stabilitas rate antar konteks
+dan tumpang-tindih dgn metode lain. Ensemble menggabungkan 4 voter unsupervised (paper cattle-outlier),
+percentile adalah metode ambang tunggal pipeline lama. Lihat reports/anomaly_review_sample.csv untuk cek mata.</p>
+</body></html>

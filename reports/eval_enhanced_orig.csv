@@ -1,0 +1,4 @@
+condition,dataset,in_domain,images,map50,map50_95,precision,recall,status
+mowa_rectified,pio_val,True,452,0.89675,0.69012,0.95516,0.87092,ok
+mowa_rectified,broiler_instance_seg,False,200,0.75072,0.47054,0.78499,0.72744,ok
+mowa_rectified,chicken_detection_fum,False,326,0.13098,0.0562,0.51211,0.14601,ok

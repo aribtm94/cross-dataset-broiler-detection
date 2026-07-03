@@ -1,0 +1,3 @@
+method,flagged,flagged_rate_pct,critical,critical_rate_pct,rate_stability_std
+ensemble,7032,2.188,3153,0.981,0.0115
+percentile,10087,3.138,3668,1.141,0.00167
