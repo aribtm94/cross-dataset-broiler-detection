@@ -1,0 +1,36 @@
+# Normalize line endings so the repo is consistent across Windows/Linux.
+* text=auto eol=lf
+
+# Windows-only scripts keep CRLF.
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Shell scripts must stay LF.
+*.sh text eol=lf
+
+# Treat notebooks/data-ish text as text but don't try to diff huge ones.
+*.ipynb text
+*.csv text
+*.json text
+
+# Binary assets — never touch, never try to diff.
+*.pt   binary
+*.pth  binary
+*.onnx binary
+*.engine binary
+*.whl  binary
+*.zip  binary
+*.pdf  binary
+*.pptx binary
+*.xlsx binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+
+# Collapse vendored / generated dirs in GitHub diffs & language stats.
+vendor/**        linguist-vendored
+wheels/**        linguist-vendored
+docs/**          linguist-documentation
+reports/**       linguist-generated

@@ -1,0 +1,30 @@
+# ===========================================================================
+# .venv-yolo  -  YOLO evaluation, weight/anomaly pipeline, Streamlit dashboard
+# Python 3.10, Windows, CUDA 12.1 (tested on RTX 4060 Laptop 8GB)
+# ===========================================================================
+#
+# STEP 1 - install CUDA torch FIRST from the PyTorch index (do NOT let pip pull
+# the CPU build). These two lines are intentionally kept out of the pinned block
+# below because they need a custom index URL:
+#
+#   pip install torch==2.1.2 torchvision==0.16.2 \
+#       --index-url https://download.pytorch.org/whl/cu121
+#
+# STEP 2 - then install the rest:
+#
+#   pip install -r requirements-yolo.txt
+#
+# torch/torchvision are listed (commented) for reference but installed in STEP 1.
+# ---------------------------------------------------------------------------
+# torch==2.1.2            # +cu121, install via --index-url in STEP 1
+# torchvision==0.16.2     # +cu121, install via --index-url in STEP 1
+
+ultralytics==8.4.84
+ultralytics-thop==2.0.20
+numpy==1.26.4
+opencv-python==4.9.0.80
+pandas==2.3.3
+pillow==12.3.0
+matplotlib==3.10.9
+PyYAML==6.0.3
+streamlit==1.58.0

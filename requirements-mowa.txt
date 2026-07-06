@@ -1,0 +1,27 @@
+# ===========================================================================
+# .venv-mowa  -  MOWA fisheye/wide-angle rectification inference + asset tooling
+# Python 3.10, Windows, CUDA 12.1 (GPU REQUIRED - MOWA hard-codes .cuda())
+# ===========================================================================
+#
+# STEP 1 - install CUDA torch FIRST (see note in requirements-yolo.txt). Order
+# matters: installing timm before torch can drag in the CPU torch build and
+# overwrite the CUDA one.
+#
+#   pip install torch==2.1.2 torchvision==0.16.2 \
+#       --index-url https://download.pytorch.org/whl/cu121
+#
+# STEP 2 - then:
+#
+#   pip install -r requirements-mowa.txt
+# ---------------------------------------------------------------------------
+# torch==2.1.2            # +cu121, install via --index-url in STEP 1
+# torchvision==0.16.2     # +cu121, install via --index-url in STEP 1
+
+timm==0.9.12
+einops==0.8.2
+numpy==1.26.4
+opencv-python==4.9.0.80
+pillow==12.3.0
+# asset download/build tooling (scripts/download_assets.py):
+gdown==6.1.0
+tqdm==4.68.3
