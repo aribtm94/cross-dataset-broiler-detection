@@ -1,0 +1,133 @@
+{
+  "_comment": "Single source of truth for large assets that live on Google Drive instead of Git. scripts/build_release_bundles.py PRODUCES these zips (and fills size_bytes + sha256). scripts/download_assets.py CONSUMES this file to fetch, verify, and extract them. After you upload a zip to Google Drive, paste its share link into the matching 'gdrive_url' field below (use the 'anyone with the link' sharing setting).",
+  "schema_version": 1,
+  "project": "cross-dataset-broiler-detection",
+  "bundles": [
+    {
+      "id": "datasets_core",
+      "file": "datasets-core.zip",
+      "title": "Core datasets (PIO + external Roboflow)",
+      "required": true,
+      "extract_to": ".",
+      "gdrive_url": "PASTE_GOOGLE_DRIVE_LINK_HERE",
+      "size_bytes": 1686134038,
+      "sha256": "e19461fc8687d622bd85bc483fa1907c2dbd4ced31b7e20b419378e24289803c",
+      "sources": [
+        "data/images",
+        "data/labels",
+        "data/external",
+        "data/classes.txt",
+        "data/dataset.yaml",
+        "data/FilePrefixCode.xlsx"
+      ],
+      "notes": "Primary source data, NOT regenerable. Required for every pipeline step. External datasets can alternatively be re-pulled with src/download_roboflow_datasets.py."
+    },
+    {
+      "id": "weights_yolo",
+      "file": "weights-yolo.zip",
+      "title": "Trained YOLO weights + training runs",
+      "required": true,
+      "extract_to": ".",
+      "gdrive_url": "PASTE_GOOGLE_DRIVE_LINK_HERE",
+      "size_bytes": 2703997518,
+      "sha256": "9cc73a927a962dacc4f021d76b6f50305cc7b2cfc3b91b26ade9141ced9f13e3",
+      "sources": [
+        "train model"
+      ],
+      "exclude": [
+        ".venv",
+        "__pycache__"
+      ],
+      "notes": "All YOLO training runs and best/last checkpoints (runs_compare, runs_rectified, runs_pad015, runs_radial, runs_pio) plus base .pt weights. Required to reproduce evaluation without retraining. The local Python venv inside this folder is excluded."
+    },
+    {
+      "id": "mowa_sam",
+      "file": "mowa-sam.zip",
+      "title": "MOWA rectification model + MobileSAM",
+      "required": true,
+      "extract_to": ".",
+      "gdrive_url": "PASTE_GOOGLE_DRIVE_LINK_HERE",
+      "size_bytes": 265436760,
+      "sha256": "9f6b2d4d1d707a87488afcde0987f3ffbf68fd51e7a81260c28d17be018130b1",
+      "sources": [
+        "vendor/MOWA",
+        "mobile_sam.pt"
+      ],
+      "exclude": [
+        ".venv",
+        "__pycache__"
+      ],
+      "notes": "Vendored MOWA repo including checkpoint/mowa_pretrained.pth, plus MobileSAM weights for mask-guided rectification. MOWA is under the S-Lab License 1.0 (non-commercial) - see THIRD_PARTY_LICENSES.md. Alternative: git clone https://github.com/KangLiao929/MOWA and download the checkpoint from the id in docs/DATA_SETUP.md."
+    },
+    {
+      "id": "derived_data",
+      "file": "derived-data.zip",
+      "title": "Derived data (rectified / enhanced / augmented / masks)",
+      "required": false,
+      "extract_to": ".",
+      "gdrive_url": "PASTE_GOOGLE_DRIVE_LINK_HERE",
+      "size_bytes": 9371259185,
+      "sha256": "a393fee6fcb40345f0eba33a4268510b714b636790108e0e75dba7705d848e02",
+      "sources": [
+        "data/rectified",
+        "data/rectified_pad015",
+        "data/rectified_coarse",
+        "data/rectified_coarse_sam",
+        "data/rectified_alpha05",
+        "data/rectified_iter2",
+        "data/enhanced",
+        "data/enhanced_orig",
+        "data/augmented",
+        "data/masks_seg"
+      ],
+      "notes": "Regenerable outputs of the MOWA / enhancement / augmentation stages. Download only to skip recomputation; otherwise regenerate with the src/ scripts documented in the README."
+    },
+    {
+      "id": "features",
+      "file": "features.zip",
+      "title": "Extracted bbox features + weight estimates",
+      "required": false,
+      "extract_to": ".",
+      "gdrive_url": "PASTE_GOOGLE_DRIVE_LINK_HERE",
+      "size_bytes": 176917661,
+      "sha256": "9ae5beef13ba5120fa767cf32ed7b53b5341507bd0a9b3f285f960f28359d9e4",
+      "sources": [
+        "features"
+      ],
+      "notes": "Large intermediate CSVs (bbox_features, weight_estimates*, ensemble). Regenerable via src/extract_bbox_features.py and src/estimate_weight_anomalies.py."
+    },
+    {
+      "id": "papers",
+      "file": "papers.zip",
+      "title": "Reference papers (PDF)",
+      "required": false,
+      "extract_to": ".",
+      "gdrive_url": "PASTE_GOOGLE_DRIVE_LINK_HERE",
+      "size_bytes": 208958424,
+      "sha256": "cd26a0bc62b1ed38106283901419c069ebfd27aa8abfc35bbde0af81fbaf4de9",
+      "sources": [
+        "papers",
+        "FisheyeDetNet_Sistu_2024_arXiv2404.13443.pdf",
+        "FisheyeYOLO_GeneralizedObjectDetection_Rashed_WACV2021_arXiv2012.02124.pdf",
+        "KITTI360_BEV_MixedPinholeFisheye_Liu_2026_arXiv2603.27818.pdf",
+        "WoodScape_Yogamani_ICCV2019_arXiv1905.01489.pdf"
+      ],
+      "notes": "Third-party reference literature for the methodology. Provided for convenience; copyright belongs to the respective publishers."
+    },
+    {
+      "id": "rectified_pio_release",
+      "file": "rilis_rectified_pio.zip",
+      "title": "Curated rectified-PIO release (prebuilt)",
+      "required": false,
+      "prebuilt": true,
+      "extract_to": ".",
+      "gdrive_url": "PASTE_GOOGLE_DRIVE_LINK_HERE",
+      "size_bytes": 1340837780,
+      "sha256": "c81e4c51da1aecd3a2415033be57e3a716d30149c69f2ad6bd01588c8880c795",
+      "sources": [
+        "rilis_rectified_pio.zip"
+      ],
+      "notes": "Standalone share package of the best MOWA-rectified PIO variant (images + labels + data.yaml). Already zipped at the repo root; the builder only hashes it. Extracts to rilis_rectified_pio/."
+    }
+  ]
+}
