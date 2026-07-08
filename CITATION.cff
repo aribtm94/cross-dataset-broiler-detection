@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Cross-Dataset Generalization of Broiler Weight Estimation and Anomaly Detection"
+abstract: >-
+  Undergraduate thesis pipeline that measures cross-dataset generalization of a
+  broiler detector and detects flock weight anomalies without ground-truth
+  weights. Includes an A/B study of MOWA end-to-end rectification as a detection
+  preprocessing step (a documented negative result) and an unsupervised voting
+  ensemble for weight-anomaly detection.
+type: software
+authors:
+  - given-names: Arib
+    alias: aribtm94
+year: 2026
+license: MIT
+repository-code: "https://github.com/aribtm94/cross-dataset-broiler-detection"
+keywords:
+  - broiler
+  - object-detection
+  - YOLO
+  - fisheye-rectification
+  - MOWA
+  - anomaly-detection
+  - domain-generalization
+references:
+  - type: software
+    title: "MOWA: Multiple-in-One Image Warping"
+    authors:
+      - family-names: Liao
+        given-names: Kang
+    repository-code: "https://github.com/KangLiao929/MOWA"
+    notes: "S-Lab License 1.0 (non-commercial)."
+  - type: software
+    title: "Ultralytics YOLO"
+    repository-code: "https://github.com/ultralytics/ultralytics"
+    notes: "AGPL-3.0."

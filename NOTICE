@@ -1,0 +1,34 @@
+cross-dataset-broiler-detection
+Cross-dataset generalization of broiler weight estimation & anomaly detection
+Copyright (c) 2026 Arib (aribtm94) and contributors
+
+This product includes original code licensed under the MIT License (see LICENSE)
+and depends on third-party software, model weights, datasets, and reference
+material that are distributed under their own licenses. The bundles fetched via
+scripts/download_assets.py are NOT all MIT-licensed.
+
+Key third-party components and their terms (full detail in THIRD_PARTY_LICENSES.md):
+
+  * MOWA (KangLiao929/MOWA) - image rectification model and checkpoint.
+      License: S-Lab License 1.0. NON-COMMERCIAL research/education use ONLY.
+      Bundled in: mowa-sam.zip (vendor/MOWA).
+
+  * Ultralytics YOLO (ultralytics) - detection framework and pretrained weights.
+      License: AGPL-3.0. Trained weights in weights-yolo.zip inherit this.
+
+  * MobileSAM (mobile_sam.pt) - segmentation model used for mask-guided rectify.
+      License: Apache-2.0.
+
+  * Cobb500 Broiler Performance & Nutrition Supplement (2022) - growth standard.
+      Copyright Cobb-Vantress, Inc. Used as a reference growth curve only.
+
+  * External datasets (Roboflow Universe: broiler_instance_seg,
+      chicken_detection_fum, and others) - see each dataset's own README /
+      license in data/external/*/ and configs/datasets/external_datasets.json.
+
+  * Reference papers (papers.zip and the fisheye PDFs at the repo root) -
+      copyright of their respective publishers; included for convenience only.
+
+Because MOWA is non-commercial, the pipeline as a whole - when run with the
+bundled MOWA weights - is intended for academic/research use only. Remove or
+replace the non-commercial components if you need a commercially usable stack.
