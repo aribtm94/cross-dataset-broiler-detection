@@ -1,0 +1,36 @@
+# =====================================================================
+# generalization-yolov8m — EXACT environment used to run the eval/render
+# scripts in src/. Self-contained: install into a fresh venv; do NOT
+# reconcile with the repo-root requirements-yolo.txt (older stack, would
+# conflict here, e.g. numpy 2.5 vs 1.26).
+#
+# Tested on Python 3.13.6, Windows. The reported eval numbers were computed
+# on a CPU-only PyTorch build (torch 2.12.1+cpu) — evaluation ran on CPU
+# (batch=1, low-RAM host); model TRAINING was done separately on a CUDA GPU.
+#
+# STEP 1 — install torch/torchvision FIRST from the correct index:
+#   # exact reproduction (CPU — what the numbers were computed on):
+#   pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cpu
+#   # OR faster GPU inference instead (optional):
+#   pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cu121
+#
+# STEP 2 — then install the rest:
+#   pip install -r requirements.txt
+#
+# torch/torchvision are pulled in STEP 1 and left out of the pinned block
+# below so pip cannot silently install an unintended (CPU-vs-CUDA) build.
+# torch==2.12.1
+# torchvision==0.27.1
+# =====================================================================
+
+# --- core: imported directly by src/*.py ---
+ultralytics==8.4.84
+opencv-python==4.13.0.92
+PyYAML==6.0.3
+
+# --- resolved by ultralytics; pinned for exact reproducibility ---
+ultralytics-thop==2.0.20
+numpy==2.5.0
+pillow==12.3.0
+matplotlib==3.11.0
+scipy==1.18.0

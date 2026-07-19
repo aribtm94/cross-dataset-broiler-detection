@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Dense-only Domain Shift Analysis</title>
+<style>body{font-family:Arial,sans-serif;margin:24px}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{border:1px solid #ddd;padding:6px;font-size:13px;vertical-align:top}th{background:#f3f3f3}</style></head>
+<body>
+<h1>Dense-only Domain Shift Analysis</h1>
+<p>Dense image threshold: bbox_count ≥ 20. This analysis separates strong flock/density evidence from sparse robustness cases.</p>
+<table>
+<tr><th>Dataset</th><th>Images</th><th>Dense images</th><th>Dense bboxes</th><th>All P97+</th><th>Dense P97+</th><th>All P99+</th><th>Dense P99+</th><th>Resolutions</th><th>Recommended use</th></tr>
+<tr><td>nestler_yolo</td><td>480</td><td>0 (0.0%)</td><td>0 (0.0%)</td><td>3.02%</td><td>0.0%</td><td>1.01%</td><td>0.0%</td><td>1</td><td>limited_use_sparse_only</td></tr><tr><td>broiler_healthy_sick</td><td>491</td><td>0 (0.0%)</td><td>0 (0.0%)</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>0.0%</td><td>1</td><td>limited_use_sparse_only</td></tr><tr><td>broiler_instance_seg</td><td>200</td><td>200 (100.0%)</td><td>10570 (100.0%)</td><td>3.78%</td><td>3.78%</td><td>1.89%</td><td>1.89%</td><td>1</td><td>strong_generalization_case</td></tr><tr><td>chicken_count</td><td>178</td><td>81 (45.51%)</td><td>2493 (68.38%)</td><td>3.73%</td><td>4.01%</td><td>2.58%</td><td>3.25%</td><td>57</td><td>domain_shift_or_supporting_case</td></tr><tr><td>chicken_detection_fum</td><td>326</td><td>326 (100.0%)</td><td>29355 (100.0%)</td><td>3.52%</td><td>3.52%</td><td>1.48%</td><td>1.48%</td><td>51</td><td>strong_but_domain_shift_case</td></tr>
+</table>
+<h2>Interpretation</h2>
+<ul>
+<li>Datasets with many dense images are stronger for generalizability claims.</li>
+<li>Datasets with many resolutions are domain-shift cases; they are useful, but should be interpreted separately from uniform-resolution datasets.</li>
+<li>Sparse datasets are useful to show pipeline robustness, not flock-level anomaly validity.</li>
+</ul>
+</body></html>

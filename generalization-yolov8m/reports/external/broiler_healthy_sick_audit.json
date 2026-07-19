@@ -1,0 +1,75 @@
+{
+  "dataset_name": "broiler_healthy_sick",
+  "root": "C:\\Arib\\MASSA AYAM\\data\\external\\broiler_healthy_sick",
+  "counts": {
+    "images_total": 505,
+    "labels_total": 507,
+    "paired": 505,
+    "images_without_label": 0,
+    "labels_without_image": 2,
+    "total_valid_bbox": 491,
+    "invalid_bbox_skipped": 0,
+    "unreadable_images": 0,
+    "unreadable_labels": 0
+  },
+  "class_distribution": {
+    "0": 241,
+    "1": 250
+  },
+  "num_classes_observed": 2,
+  "bbox_per_image": {
+    "n": 505,
+    "mean": 0.972277,
+    "median": 1.0,
+    "stdev": 0.16434,
+    "min": 0.0,
+    "max": 1.0,
+    "p05": 1.0,
+    "p95": 1.0
+  },
+  "bbox_width_norm": {
+    "n": 491,
+    "mean": 0.688621,
+    "median": 0.689609,
+    "stdev": 0.08589,
+    "min": 0.468038,
+    "max": 0.965151,
+    "p05": 0.545753,
+    "p95": 0.821556
+  },
+  "bbox_height_norm": {
+    "n": 491,
+    "mean": 0.677459,
+    "median": 0.67341,
+    "stdev": 0.11409,
+    "min": 0.433351,
+    "max": 0.943618,
+    "p05": 0.497449,
+    "p95": 0.870038
+  },
+  "bbox_area_norm": {
+    "n": 491,
+    "mean": 0.469255,
+    "median": 0.459619,
+    "stdev": 0.110653,
+    "min": 0.244704,
+    "max": 0.8283,
+    "p05": 0.308909,
+    "p95": 0.667771
+  },
+  "top_resolutions": {
+    "416x416": 505
+  },
+  "num_distinct_resolutions": 1,
+  "examples_images_without_label": [],
+  "examples_labels_without_image": [
+    "README.dataset",
+    "README.roboflow"
+  ],
+  "pipeline_readiness": {
+    "is_yolo_format": true,
+    "single_class": false,
+    "has_high_density": false,
+    "uniform_resolution": true
+  }
+}

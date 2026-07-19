@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Cross-Dataset Relative Generalizability</title>
+<style>body{font-family:Arial,sans-serif;margin:24px}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{border:1px solid #ddd;padding:6px;font-size:13px;vertical-align:top}th{background:#f3f3f3}code{background:#f6f6f6;padding:2px 4px}</style></head>
+<body>
+<h1>Cross-Dataset Relative Generalizability</h1>
+<p><strong>Interpretasi:</strong> semua dataset eksternal dijalankan dalam mode anomaly-relatif. Angka bukan estimasi berat gram aktual, melainkan deviasi ukuran visual terkoreksi terhadap konteks image/dataset.</p>
+<table>
+<tr><th>Dataset</th><th>Images</th><th>BBox</th><th>Median bbox/img</th><th>Median image CV</th><th>P97+ rate</th><th>P99+ rate</th><th>Radial effect</th><th>Depth effect</th><th>Notes</th></tr>
+<tr><td>nestler_yolo</td><td>480</td><td>4043</td><td>9.0</td><td>50.1476</td><td>3.02%</td><td>1.01%</td><td>1.4366</td><td>4.338</td><td>Converted from video tracks_bbox to YOLO bbox. Sparse/medium density; no age or weight ground truth.</td></tr><tr><td>broiler_healthy_sick</td><td>491</td><td>491</td><td>1.0</td><td>0.0</td><td>0.0%</td><td>0.0%</td><td>0.3719</td><td>2.0244</td><td>Roboflow segmentation converted to bbox. Two classes healthy/sick; very sparse, usually one object per image. Use as limited-use robustness case, not density case.</td></tr><tr><td>broiler_instance_seg</td><td>200</td><td>10570</td><td>53.0</td><td>22.9616</td><td>3.78%</td><td>1.89%</td><td>0.5665</td><td>1.3652</td><td>Broiler-specific Roboflow segmentation converted to bbox. Dense enough for image-level relative anomaly.</td></tr><tr><td>chicken_count</td><td>178</td><td>3646</td><td>18.0</td><td>22.8203</td><td>3.73%</td><td>2.58%</td><td>-0.9834</td><td>1.6539</td><td>General chicken counting dataset. Mixed resolutions; useful domain-shift/counting case.</td></tr><tr><td>chicken_detection_fum</td><td>326</td><td>29355</td><td>88.5</td><td>34.8218</td><td>3.52%</td><td>1.48%</td><td>0.6376</td><td>0.4263</td><td>Dense chicken detection dataset. Many resolutions; useful high-density generalization case.</td></tr>
+</table>
+<h2>Kesimpulan awal</h2>
+<ul>
+<li>P97/P99 sengaja menghasilkan kandidat konservatif; rate mendekati 3% dan 1% pada konteks yang cukup besar.</li>
+<li>Dataset sparse harus dibaca sebagai robustness check, bukan pengganti dataset dense commercial-house.</li>
+<li>Perbedaan resolusi dan density adalah domain shift utama yang diuji.</li>
+</ul>
+</body></html>

@@ -1,0 +1,7 @@
+dataset,images,paired,valid_bbox,invalid_bbox,classes,class_distribution,bbox_per_image_mean,bbox_per_image_median,bbox_per_image_max,distinct_resolutions,yolo_format,single_class,high_density,uniform_resolution
+pio_baseline,1487,1487,327283,5,1,"{""0"": 327283}",220.096167,179.0,1151.0,2,True,True,True,True
+nestler_yolo,480,480,4043,0,1,"{""0"": 4043}",8.422917,9.0,16.0,1,True,True,False,True
+broiler_healthy_sick,505,505,491,0,2,"{""0"": 241, ""1"": 250}",0.972277,1.0,1.0,1,True,False,False,True
+broiler_instance_seg,200,200,10570,0,1,"{""0"": 10570}",52.85,53.0,58.0,1,True,True,True,True
+chicken_count,178,178,3646,0,1,"{""0"": 3646}",20.483146,18.0,96.0,57,True,True,False,False
+chicken_detection_fum,326,326,29355,0,1,"{""0"": 29355}",90.046012,88.5,158.0,51,True,True,True,False

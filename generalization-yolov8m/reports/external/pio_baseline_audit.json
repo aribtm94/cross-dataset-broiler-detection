@@ -1,0 +1,72 @@
+{
+  "dataset_name": "pio_baseline",
+  "root": "C:\\Arib\\MASSA AYAM\\data",
+  "counts": {
+    "images_total": 1487,
+    "labels_total": 1487,
+    "paired": 1487,
+    "images_without_label": 0,
+    "labels_without_image": 0,
+    "total_valid_bbox": 327283,
+    "invalid_bbox_skipped": 5,
+    "unreadable_images": 0,
+    "unreadable_labels": 0
+  },
+  "class_distribution": {
+    "0": 327283
+  },
+  "num_classes_observed": 1,
+  "bbox_per_image": {
+    "n": 1487,
+    "mean": 220.096167,
+    "median": 179.0,
+    "stdev": 180.386689,
+    "min": 1.0,
+    "max": 1151.0,
+    "p05": 40.0,
+    "p95": 558.1
+  },
+  "bbox_width_norm": {
+    "n": 327283,
+    "mean": 0.027777,
+    "median": 0.023958,
+    "stdev": 0.015089,
+    "min": 0.000521,
+    "max": 0.135937,
+    "p05": 0.010417,
+    "p95": 0.058333
+  },
+  "bbox_height_norm": {
+    "n": 327283,
+    "mean": 0.055826,
+    "median": 0.048148,
+    "stdev": 0.028987,
+    "min": 0.000919,
+    "max": 0.236111,
+    "p05": 0.023148,
+    "p95": 0.115741
+  },
+  "bbox_area_norm": {
+    "n": 327283,
+    "mean": 0.001863,
+    "median": 0.001133,
+    "stdev": 0.002005,
+    "min": 0.0,
+    "max": 0.024977,
+    "p05": 0.000276,
+    "p95": 0.00612
+  },
+  "top_resolutions": {
+    "1920x1080": 1452,
+    "1920x1088": 35
+  },
+  "num_distinct_resolutions": 2,
+  "examples_images_without_label": [],
+  "examples_labels_without_image": [],
+  "pipeline_readiness": {
+    "is_yolo_format": true,
+    "single_class": true,
+    "has_high_density": true,
+    "uniform_resolution": true
+  }
+}

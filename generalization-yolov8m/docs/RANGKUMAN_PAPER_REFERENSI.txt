@@ -1,0 +1,435 @@
+================================================================================
+RANGKUMAN PAPER REFERENSI + DAMPAK UNTUK PIPELINE YOLOv8m (trained on PIO)
+================================================================================
+Tanggal   : 2026-07-02
+Konteks   : YOLOv8m dilatih HANYA di PIO (top-down broiler dense, imgsz 960).
+            Diuji ZERO-SHOT ke 3 dataset: broiler_instance_seg, chicken_detection_fum,
+            nestler_yolo. Constraint: tanpa target data saat training; compute lokal
+            CPU / RTX 3050 6GB (belum CUDA). Tujuan: lebih robust ke dataset non-PIO.
+Baseline  : PIO-val  -> P=0.958 R=0.888 mAP50=0.936 mAP50-95=0.769
+            broiler  -> mAP50=0.836 (bagus)
+            fum      -> mAP50=0.139 (mendeteksi, tapi box longgar + over-detect)
+            nestler  -> mAP50=0.0   (viewpoint shift berat)
+Sumber    : deep-research (27 sumber, 25 klaim diverifikasi 3-vote, 23 lolos/2 gugur).
+
+LEGENDA TAG:
+  [NO-RETRAIN]    = bisa dipakai tanpa melatih ulang (cocok constraint CPU + zero-shot)
+  [LIGHT-RETRAIN] = perlu retrain PIO-only (butuh CUDA di RTX 3050); TANPA target data
+  [FRAMING]       = untuk narasi/klaim/metode pelaporan tesis, bukan naikkan skor
+  [CAVEAT]        = ada bagian yang GAGAL verifikasi -> jangan kutip angkanya
+
+Rencana implementasi memakai paper2 ini ada di:
+  configs/RENCANA_GENERALISASI_YOLOV8M.md
+
+
+================================================================================
+A. PAPER SUMBER (dataset & model yang kamu pakai)
+================================================================================
+
+[A1] PIO: A Large-Scale Dataset for Broiler Chicken Detection under Real Poultry
+     Farming Conditions
+     Boniche, Cruz, dkk. — Scientific Data (Nature) 2026 — s41597-026-07114-5
+     URL: https://www.nature.com/articles/s41597-026-07114-5
+  Isi: Dataset 1.487 gambar top-down, 327.289 instance broiler (rata2 ~220 ayam/gambar),
+       satu kelas, kandang komersial + prototype, 6 minggu growth stage. Validasi teknis
+       HANYA in-domain: 3 varian YOLOv10 (n/s/m). Terbaik YOLOv10m: P=0.961 R=0.88
+       mAP50=0.97 mAP50-95=0.76. TIDAK ada evaluasi lintas-dataset sama sekali.
+  Dampak untuk pipeline: Ini titik acuanmu. (1) YOLOv8m-mu SUDAH menang di recall &
+       mAP50-95, gap cuma di mAP50 (0.936 vs 0.97) yang kemungkinan bukan apple-to-apple.
+       (2) Karena paper tak punya uji generalisasi, studi lintas-datasetmu OTOMATIS jadi
+       kontribusi baru. Jangan bingkai "mengalahkan paper" sebagai kejar mAP; bingkai
+       sebagai "melakukan yang tidak dilakukan paper".
+     [FRAMING]
+
+
+================================================================================
+B. FRAMING MASALAH: SINGLE-DOMAIN GENERALIZED OBJECT DETECTION (S-DGOD)
+================================================================================
+
+[B1] Single-Domain Generalized Object Detection in Urban Scene via
+     Cyclic-Disentangled Self-Distillation (CDSD)
+     Wu & Deng — CVPR 2022
+     URL: https://openaccess.thecvf.com/content/CVPR2022/papers/Wu_Single-Domain_Generalized_Object_Detection_in_Urban_Scene_via_Cyclic-Disentangled_Self-Distillation_CVPR_2022_paper.pdf
+     Code: github.com/AmingWu/Single-DGOD
+  Isi: Memformalkan problem S-DGOD: latih 1 source domain TANPA target data, generalisasi
+       ke banyak unseen target. Memisahkan fitur domain-invariant vs domain-specific via
+       self-distillation. Benchmark cuaca kota (source=daytime-sunny -> target foggy/
+       rainy/night). Hasil: in-domain 56.1 mAP50 turun jadi 36.6/33.5/28.2/16.6 di target.
+  Dampak untuk pipeline: Memberi NAMA & LEGITIMASI ilmiah untuk setup-mu (PIO=1 source,
+       3 target). Angka degradasinya jadi pembanding "seberapa jauh penurunan lintas-domain
+       itu wajar" -> mendukung framing nestler sbg batas, bukan bug. Metodenya sendiri
+       butuh retrain + custom code (jadikan sitasi framing, bukan resep no-retrain).
+     [FRAMING]
+
+[B2] Generalization Under Scrutiny: Cross-Domain Detection Progresses, Pitfalls,
+     and Persistent Challenges (survey)
+     2026 — arXiv:2604.08230
+     URL: https://arxiv.org/pdf/2604.08230
+  Isi: Survey 2026 khusus cross-domain object detection. Dua poin kunci: (1) DG untuk
+       deteksi "under-investigated dibanding UDA tapi lebih applicable" saat target data
+       langka/tak ada. (2) "mAP itu non-decomposable" -> mencampur error klasifikasi vs
+       lokalisasi; rekomendasi lapor metrik stage-wise (proposal recall, cls-given-oracle-
+       box, localization error, ECE). Juga menyebut annotation bias (box tightness, class
+       granularity) sbg penyebab kegagalan cross-domain yang terpisah dari domain shift.
+  Dampak untuk pipeline: Tulang punggung PROTOKOL PELAPORAN tesismu. Membenarkan bahwa
+       fum mAP50 rendah bisa jadi soal lokalisasi/anotasi, bukan model buta -> jadi kamu
+       WAJIB lapor multi-IoU + dekomposisi error, bukan mAP50 tunggal. Membuat evaluasimu
+       "fair" & tahan serangan penguji.
+     [FRAMING]
+
+
+================================================================================
+C. DOMAIN GENERALIZATION LEVEL-FITUR / STYLE (perlu retrain PIO-only)
+================================================================================
+
+[C1] Normalization Perturbation (NP): A Simple Domain Generalization Method for
+     Real-World Domain Shifts
+     Fan dkk. — ICLR 2023 — arXiv:2211.04393
+     URL: https://arxiv.org/pdf/2211.04393
+  Isi: Perturbasi statistik channel (mean/var) fitur di layer dangkal backbone untuk
+       sintesis "latent styles" beragam -> model belajar representasi invariant-terhadap-
+       style. "Generalizes well tanpa observasi target domain... hanya andalkan satu
+       source domain." Ringan secara konsep, ditaruh di stage 1-2 backbone.
+  Dampak untuk pipeline: Kandidat teknik retrain-ringan yang PAS constraint zero-shot
+       (single source PIO, no target). Bisa bikin YOLOv8m lebih tahan perbedaan pencahayaan/
+       warna/tekstur antar-kandang (membantu fum, mungkin sedikit nestler). Tapi bukan
+       fitur bawaan Ultralytics -> perlu tempel kode di backbone. Ekspektasi gain single-digit.
+     [LIGHT-RETRAIN]
+
+[C2] SDG-YOLOv8: Single-Domain Generalized object detection based on domain diversity
+     2024/2025 — jurnal Displays — ScienceDirect S0141938224003123
+     URL: https://www.sciencedirect.com/science/article/abs/pii/S0141938224003123
+  Isi: BERBASIS YOLOv8 (paling relevan!). Dua modul: (a) local-global transformation ->
+       bikin "auxiliary domain" dgn anotasi tetap sama (menambah diversity level-gambar);
+       (b) normalization-perturbation fusion (menambah diversity level-fitur, seperti NP).
+       Dilatih supervised sama seperti source + loss khusus. Tanpa target images.
+  Dampak untuk pipeline: RESEP paling langsung ditiru untuk tesismu — ini persis
+       "YOLOv8 + DG single-source". Bisa jadi kontribusi metodologis (adaptasi ke domain
+       ayam). Perlu retrain + implementasi modul/loss -> hanya jika CUDA aktif & waktu ada.
+     [LIGHT-RETRAIN]
+
+[C3] Diversify and Align (DivAlign): single-domain generalized object detection
+     Danish dkk. — CVPR 2024 — arXiv:2405.14497
+     URL: https://arxiv.org/abs/2405.14497 | Code: github.com/msohaildanish/DivAlign
+  Isi: Single-source DG (diversifikasi + alignment). Memberi ANGKA ekspektasi realistis
+       gain DG: di atas Faster R-CNN (source=daytime-sunny) naik +8.4 (night-rainy),
+       +8.1 (dusk-rainy), +4.1 (foggy), +3.6 (night-clear) mAP50. Semua tanpa target data.
+  Dampak untuk pipeline: Kalibrasi EKSPEKTASI: gain DG realistis itu single-digit mAP,
+       bukan lompatan besar. Berguna untuk menetapkan target eksperimen yang jujur & untuk
+       menjawab "kenapa nestler tetap rendah" (bahkan metode DG khusus pun gain-nya terbatas).
+       CATATAN: angka dari domain cuaca-kota, bukan ayam -> validasi empiris.
+     [LIGHT-RETRAIN] [CAVEAT: angka dari domain lain]
+
+[C4] (Augmentasi-diversifikasi berbasis korupsi visual untuk SDG)
+     2024 — arXiv:2405.14497 (varian/pendukung DivAlign)
+     URL: https://arxiv.org/abs/2405.14497
+  Isi: Menunjukkan SDG bisa ditingkatkan signifikan TANPA target data murni lewat
+       augmentasi korupsi yang sudah ada (weather, noise, blur, digital, Fourier) di
+       source domain tunggal.
+  Dampak untuk pipeline: Justifikasi ilmiah untuk "resep augmentasi kuat" yang bisa kamu
+       nyalakan lewat knob bawaan Ultralytics (HSV, blur, noise, mosaic, mixup, copy-paste,
+       multi-scale) SAAT retrain PIO-only -> versi murah dari DG tanpa custom code.
+     [LIGHT-RETRAIN]
+
+[C5] (DG detection via adversarial multi-source alignment / GRL)
+     2022-2024 — arXiv:2203.05294
+     URL: https://arxiv.org/pdf/2203.05294
+  Isi: Metode DG deteksi yang BUTUH banyak source domain berlabel + gradient-reversal-layer
+       (GRL) adversarial feature alignment. Yakni butuh retrain DAN beberapa domain berbeda.
+  Dampak untuk pipeline: Sebagian besar TIDAK cocok (kamu cuma punya 1 source: PIO).
+       Berguna hanya sebagai kontras di bab related-work: "metode multi-source tidak
+       applicable di setting single-source kami" -> memperkuat pilihan S-DGOD.
+     [FRAMING]
+
+
+================================================================================
+D. METODE INFERENCE-TIME (TANPA RETRAIN) -- INTI SOLUSI CONSTRAINT-MU
+================================================================================
+
+[D1] Slicing Aided Hyper Inference and Fine-tuning for Small Object Detection (SAHI)
+     Akyon dkk. — ICIP 2022 — arXiv:2202.06934
+     URL: https://arxiv.org/abs/2202.06934
+  Isi: Slice gambar besar jadi ubin, deteksi per-ubin, gabung via NMS. "Bisa diterapkan
+       di atas detektor apapun TANPA fine-tuning." Gain inference-only terukur: +6.8% (FCOS),
+       +5.1% (VFNet), +5.3% (TOOD) AP di data objek-kecil (VisDrone/xView). Hemat VRAM.
+  Dampak untuk pipeline: PRIORITAS #1. Ideal untuk FUM (1920x1080, ~88 ayam/gambar) yang
+       saat imgsz 960 diciutkan ~2x sehingga ayam kecil hilang. Slicing kembalikan resolusi
+       -> recall & lokalisasi naik. Muat di 6GB (per-ubin ringan). Broiler (640x640) efeknya
+       kecil. Nestler tak tertolong (masalah viewpoint). Tanpa retrain -> cocok CPU + zero-shot.
+     [NO-RETRAIN]
+
+[D2] Ultralytics SAHI Tiled Inference (dokumentasi implementasi)
+     URL: https://docs.ultralytics.com/guides/sahi-tiled-inference
+  Isi: Panduan pakai SAHI di YOLO pretrained: "no model modifications or retraining",
+       "optimizes memory usage... limited resources". Parameter: ukuran slice, overlap ratio,
+       postprocess (NMS/NMM).
+  Dampak untuk pipeline: Jalur implementasi konkret (pip install sahi). Yang harus di-tune:
+       slice ~960, overlap 0.2-0.3, postprocess type. Ini yang bikin SAHI benar-benar
+       naikkan skor fum di setup-mu.
+     [NO-RETRAIN]
+
+[D3] SAHI Postprocessing — GreedyNMM (Greedy Non-Maximum Merging)
+     dokumentasi SAHI 0.11.0
+     URL: https://tessl.io/registry/tessl/pypi-sahi/0.11.0/files/docs/postprocessing.md
+  Isi: GreedyNMM = proses prediksi urut confidence menurun, MENGGABUNG (bukan membuang)
+       deteksi tumpang-tindih; direkomendasikan untuk sliced inference.
+  Dampak untuk pipeline: Penting untuk mengendalikan OVER-DETECTION fum. Salah pilih
+       postprocess -> slicing malah perparah jumlah box (179 vs 97 GT). GreedyNMM +
+       match_threshold yang di-tune = kunci agar slicing membantu, bukan merusak.
+     [NO-RETRAIN]
+
+[D4] YOLO Test-Time Augmentation (TTA)
+     dokumentasi Ultralytics YOLOv5
+     URL: https://docs.ultralytics.com/yolov5/tutorials/test-time-augmentation
+  Isi: augment=True / --augment: flip kiri-kanan + 3 resolusi, hasil digabung sebelum NMS.
+       Murni flag inference, tanpa retrain. Biaya ~2-3x waktu inference.
+  Dampak untuk pipeline: Add-on murah untuk coba angkat recall di ketiga dataset. TAPI
+       besar manfaatnya TIDAK pasti (lihat CAVEAT) -> perlakukan sebagai ablation, ukur
+       sendiri, jangan janjikan angka. Di CPU, biaya 2-3x terasa -> pakai di subset dulu.
+     [NO-RETRAIN] [CAVEAT: besar gain tak terverifikasi]
+
+[D5] Global Wheat Challenge 2020: Analysis of the competition design and winning models
+     David dkk. — 2021 — arXiv:2105.06182
+     URL: https://arxiv.org/abs/2105.06182
+  Isi: Laporan kompetisi deteksi lintas-domain (gandum, banyak negara/kamera). Ketiga
+       solusi PEMENANG memakai pseudo-labelling + Test-Time Augmentation + Weighted Boxes
+       Fusion (WBF) saat inference; NONE pakai modul domain-adaptation khusus/arsitektur baru.
+  Dampak untuk pipeline: Bukti empiris kuat bahwa TRIK INFERENCE (TTA + WBF) memang jadi
+       penggerak utama performa cross-domain di praktik nyata pertanian -> memvalidasi
+       strategi Tier-1 no-retrain-mu. Pertimbangkan tambah WBF (menggabung box multi-augment)
+       di atas TTA. Sitasi bagus: "domain pertanian, cross-location, inference-time menang."
+     [NO-RETRAIN]
+
+
+================================================================================
+E. KALIBRASI CONFIDENCE / THRESHOLD LINTAS DOMAIN (lawan over-detection fum)
+================================================================================
+
+[E1] Post-Hoc Uncertainty Calibration for Domain Drift Scenarios
+     Tomani dkk. — CVPR 2021 (Oral) — arXiv:2012.10988
+     URL: https://openaccess.thecvf.com/content/CVPR2021/papers/Tomani_Post-Hoc_Uncertainty_Calibration_for_Domain_Drift_Scenarios_CVPR_2021_paper.pdf
+  Isi: Kalibrasi standar (temperature scaling) jadi over-confident saat domain shift.
+       Solusi: kalibrasi post-hoc pada validation set yang DIBERI PERTURBASI Gaussian 10
+       level (dari in-domain sampai jauh out-of-domain), hanya men-tune kalibrator, bukan
+       bobot jaringan. Bebas target data.
+  Dampak untuk pipeline: Resep BEBAS-TARGET untuk memilih threshold confidence yang lebih
+       tepat saat pindah domain -> langsung menekan over-detection fum yang meng-inflate FP
+       & merusak mAP. Terapkan: perturbasi PIO-val (noise/blur/brightness), cari operating
+       point, pakai ke 3 dataset. CAVEAT: paper ini KLASIFIKASI, dipakai secara ANALOGI
+       untuk threshold detektor -> sebut eksplisit sebagai analogi.
+     [NO-RETRAIN] [CAVEAT: paper klasifikasi, dipakai analogi]
+
+[E2] Towards Improving Calibration in Object Detection Under Domain Shift (TCD)
+     Munir dkk. — NeurIPS 2022 — arXiv:2209.07601
+     URL: https://arxiv.org/abs/2209.07601 (ringkasan: https://im.itu.edu.pk/towards-improving-calibration/)
+  Isi: Detektor buruk kalibrasinya baik in- maupun out-of-domain. TCD = loss auxiliary
+       train-time yang meminimalkan selisih |IoU - confidence|, mengaitkan confidence ke
+       kualitas lokalisasi. Plug-and-play tapi saat TRAINING.
+  Dampak untuk pipeline: Kalau kamu jadi retrain (Tier 2), TCD bikin skor confidence
+       YOLOv8m lebih mencerminkan mutu box -> threshold transfer antar dataset lebih andal.
+       Pakai HANYA source PIO (no target). Karena butuh retrain -> bukan opsi no-retrain.
+     [LIGHT-RETRAIN]
+
+[E3] (Detector calibration degrades under shift — object-level calibration error, OCE)
+     2024 — arXiv:2412.01782
+     URL: https://arxiv.org/html/2412.01782v1
+  Isi: Menunjukkan kalibrasi detektor memburuk drastis di bawah shift (mis. COCO ->
+       Foggy Cityscapes), OCE naik ke 0.419-0.962 tergantung tingkat keparahan.
+  Dampak untuk pipeline: Bukti pendukung bahwa threshold confidence yang di-set di PIO
+       TIDAK bisa diasumsikan valid di fum/nestler -> justifikasi kenapa kalibrasi/tuning
+       threshold per-dataset (E1) itu perlu, bukan mengada-ada.
+     [FRAMING]
+
+[E4] Panduan praktis memilih confidence threshold YOLO (F1 curve)
+     blog — restato.github.io & voxel51.com
+     URL: https://restato.github.io/blog/choosing-yolo-confidence-threshold/
+     URL: https://voxel51.com/blog/finding-the-optimal-confidence-threshold
+  Isi: Default conf 0.25 hanya titik awal; threshold optimal dibaca dari puncak F1 di
+       F1_curve.png (data-driven) daripada tebak manual.
+  Dampak untuk pipeline: Cara cepat & konkret set operating point per dataset (dari kurva
+       F1 di PIO / PIO-perturbed). Mendukung E1 di level praktis.
+     [NO-RETRAIN]
+
+
+================================================================================
+F. MASALAH ANOTASI / METRIK (menjelaskan & mengukur fum dgn ADIL)
+================================================================================
+
+[F1] Bridging Annotation Gaps: Transferring Labels to Align Object Detection Datasets
+     2025 — arXiv:2506.04737
+     URL: https://arxiv.org/html/2506.04737v2
+  Isi: Menggabung/transfer antar dataset naif memunculkan "annotation conflicts": semantik
+       kelas, granularitas label, definisi background, gaya bounding box -> masalah TERPISAH
+       dari domain shift visual. Metode LAT memperbaiki mismatch anotasi (+4.2/+4.8 AP),
+       mengalahkan domain adaptation.
+  Dampak untuk pipeline: Landasan teori utama untuk klaim "fum mAP rendah = beda protokol
+       anotasi, bukan model buta". Mendukung keputusanmu untuk TIDAK sekadar percaya mAP50.
+     [FRAMING]
+
+[F2] Label Convergence: Defining an Upper Performance Bound in Object Recognition
+     through Contradictory Annotations
+     Tschirschwitz & Rodehorst — 2024 (WACV 2025) — arXiv:2409.09412
+     URL: https://arxiv.org/abs/2409.09412
+  Isi: Anotasi yang saling bertentangan/tak konsisten memberi BATAS ATAS performa ("label
+       convergence") -> model tak bisa capai mAP optimal apa pun kualitasnya.
+  Dampak untuk pipeline: Argumen kuat & citable: skor rendah fum bisa mencerminkan
+       inkonsistensi label dataset target, BUKAN kekurangan YOLOv8m-mu. Pakai di bab
+       diskusi limitasi/evaluasi.
+     [FRAMING]
+
+[F3] Can We Trust Bounding Box Annotations for Object Detection?
+     Murrugarra-Llerena dkk. — CVPR Workshop (VDU) 2022
+     URL: https://openaccess.thecvf.com/content/CVPR2022W/VDU/papers/Murrugarra-Llerena_Can_We_Trust_Bounding_Box_Annotations_for_Object_Detection_CVPRW_2022_paper.pdf
+  Isi: Cuma mengganti KONVENSI anotasi ground-truth (box dari segmentasi SHBB vs box
+       gambaran manusia AHBB) menurunkan akurasi detektor VOC ~6.3% (AP75) & 7.6-9.3%
+       (AP50:95) TANPA mengubah detektor.
+  Dampak untuk pipeline: ANGKA konkret (yang LOLOS verifikasi) untuk membuktikan protokol
+       label saja bisa menekan mAP beberapa poin -> pakai ini sebagai pengganti angka
+       Cityscapes yang gugur (lihat CAVEAT). Sangat pas untuk narasi fum.
+     [FRAMING]
+
+[F4] Tightness-aware Evaluation Protocol for Scene Text Detection (TIoU)
+     Liu dkk. — CVPR 2019 — arXiv:1904.00813
+     URL: https://arxiv.org/abs/1904.00813
+  Isi: Evaluasi IoU-threshold standar menganggap dua deteksi ber-IoU sama itu setara,
+       padahal ketatnya/kelengkapan box bisa jauh beda. Mengusulkan metrik sadar-ketat
+       (tightness-aware).
+  Dampak untuk pipeline: Mendukung ide melapor lokalisasi secara terpisah (box longgar
+       fum). Konsep tightness-aware/TIoU bisa jadi metrik tambahan untuk menunjukkan
+       "deteksi benar tapi box kurang ketat", bukan gagal deteksi.
+     [FRAMING]
+
+[F5] (mAP tidak menghukum over-detection seperti F1)
+     blog analisis metrik — 2024
+     URL: https://voxel51.com/blog/finding-the-optimal-confidence-threshold
+  Isi: mAP relatif tidak sensitif ke JUMLAH box: asal satu box match GT, skor tetap
+       tinggi; over-detection tak dihukum mAP seperti oleh F1.
+  Dampak untuk pipeline: Justifikasi melapor F1 & rasio pred:GT di samping mAP -> menangkap
+       masalah over-detection fum yang tak terlihat di mAP saja.
+     [FRAMING]
+
+[F6] (Human annotators lebih baik pada bbox daripada segmentasi)
+     2024 — arXiv:2409.10272
+     URL: https://arxiv.org/html/2409.10272v1
+  Isi: Anotator manusia jauh lebih akurat pada tugas deteksi bbox dibanding segmentasi
+       (gap F1 ~0.08) -> pilihan tugas/protokol anotasi mengubah kualitas label terukur.
+  Dampak untuk pipeline: Catatan bahwa dataset target yang dikonversi dari SEGMENTASI
+       (broiler_instance_seg & broiler_healthy_sick berasal dari YOLO-seg) mungkin punya
+       kualitas/gaya box berbeda -> relevan saat menjelaskan variasi skor antar dataset.
+     [FRAMING]
+
+[F7] TIDE: A General Toolbox for Identifying Object Detection Errors
+     Bolya dkk. — ECCV 2020
+     URL: https://arxiv.org/abs/2008.08115  (tool: dbolya/tide)
+  Isi: Mendekomposisi (1 - mAP) menjadi tipe error terpisah: klasifikasi, lokalisasi,
+       duplikat, background, missed. Tanpa mengubah model.
+  Dampak untuk pipeline: ALAT WAJIB untuk fum: jalankan TIDE -> tunjukkan error DIDOMINASI
+       "localization", bukan "missed/background" -> bukti kuantitatif "model mendeteksi,
+       cuma box meleset IoU". Ini yang mengubah temuan fum dari "gagal" jadi "diagnosa jelas".
+     [NO-RETRAIN] [FRAMING]
+
+[F8] (Sensitivity of Average Precision to Bounding Box Perturbations)
+     arXiv:2206.10107
+     URL: https://arxiv.org/abs/2206.10107
+  Isi: Menggeser box 5-10 piksel bisa mengubah mAP ~10% -> AP sangat sensitif ke ketat/
+       posisi box.
+  Dampak untuk pipeline: Menguatkan bahwa gap lokalisasi kecil (bukan kegagalan deteksi)
+       bisa menjatuhkan mAP fum secara tak proporsional -> mendukung lapor multi-IoU (0.3).
+     [FRAMING]
+
+
+================================================================================
+G. VIEWPOINT / DOMAIN SHIFT BERAT (untuk menjelaskan nestler)
+================================================================================
+
+[G1] Towards Robust Cross-Dataset Object Detection Generalization under Domain
+     Specificity
+     2026 — arXiv:2601.09497
+     URL: https://arxiv.org/abs/2601.09497
+  Isi: Transfer lintas-dataset stabil dalam tipe-setting sama, tapi turun DRASTIS &
+       asimetris saat pindah tipe-setting; kerusakan terparah = dari source SPESIFIK-setting
+       ke target AGNOSTIK-setting. Usul skema pelaporan dua-protokol.
+  Dampak untuk pipeline: Menjelaskan persis nestler: PIO = kandang top-down spesifik ->
+       nestler = backyard agnostik = kasus terparah menurut teori. Melegitimasi hasil 0.0
+       sebagai konsisten-literatur, bukan bug. Skema dua-protokolnya bisa ditiru untuk
+       tabel hasilmu.
+     [FRAMING]
+
+[G2] PhysAug (physics-based augmentation untuk single-domain generalization)
+     2024 — arXiv:2412.11807
+     URL: https://arxiv.org/abs/2412.11807
+  Isi: (Pendukung) Metode augmentasi berbasis fisika untuk SDG; dipakai men-cross-check
+       angka benchmark CDSD (nilai target 16.6-36.6 mAP50 konsisten).
+  Dampak untuk pipeline: Sumber cross-check bahwa ceiling zero-shot memang rendah &
+       variatif. Ide augmentasi fisik (cahaya/atmosfer) bisa jadi inspirasi resep augmentasi
+       Tier-2, tapi bukan prioritas.
+     [FRAMING]
+
+[G3] G-NAS (Generalizable Neural Architecture Search untuk SDG detection)
+     2024 — arXiv:2402.04672
+     URL: https://arxiv.org/abs/2402.04672
+  Isi: (Pendukung) Metode SDG lain; juga dipakai cross-check angka benchmark S-DGOD.
+  Dampak untuk pipeline: Sama seperti G2 — konfirmasi ceiling. Tidak untuk diimplementasi
+       (NAS mahal, jauh di luar constraint CPU).
+     [FRAMING]
+
+
+================================================================================
+H. STUDI LIVESTOCK LINTAS-DOMAIN (pembanding same-field terdekat)
+================================================================================
+
+[H1] Sustainable Self-Training Pig Detection System with Augmented Single Labeled
+     Target Data for Solving Domain Shift Problem
+     Lee dkk. — Sensors 2025 — PMC12157766
+     URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC12157766/
+  Isi: Detektor babi (YOLOv8) source-only ANJLOK di domain baru: hanya 36.86 AP. Dengan
+       self-training + augmentasi + 1 sample target berlabel, naik jadi 90.62 AP. Bukti
+       bahwa detektor livestock TANPA adaptasi kolaps di kandang berbeda.
+  Dampak untuk pipeline: Pembanding SAME-FIELD terdekat (livestock, YOLOv8, domain shift
+       kandang). DUA guna: (1) mengonfirmasi bahwa source-only kolaps itu wajar (senasib
+       dgn nestler/fum-mu). (2) MENANDAI batas: mereka butuh SEDIKIT target data untuk
+       pulih -> menegaskan bahwa zero-shot murni (constraint-mu) memang lebih sulit; kalau
+       nanti boleh 1-shot adaptasi, ini resepnya. Sitasi penting di related work.
+     [FRAMING] (metodenya = domain adaptation, di luar zero-shot; sitasi/kontras saja)
+
+CATATAN GAP: deep-research TIDAK menemukan studi generalisasi/zero-shot lintas-dataset
+KHUSUS AYAM/BROILER. Artinya kamu tak punya baseline same-species langsung -> justru
+memperkuat NOVELTY tesis ("pertama yang menguji generalisasi lintas-dataset deteksi broiler").
+
+
+================================================================================
+I. KLAIM YANG GUGUR VERIFIKASI -- JANGAN DIKUTIP ANGKANYA
+================================================================================
+
+[X1] "TTA menaikkan +1.2 mAP di COCO (0.504 -> 0.516)"  -> vote 1-2, GAGAL.
+     Aksi: jangan sebut angka gain TTA; ukur sendiri di datamu. (lihat D4)
+
+[X2] "Cityscapes 55.2 -> nuImages 39.2 / Waymo 44.6 akibat mismatch anotasi" -> vote 0-3,
+     GAGAL. Aksi: kutip MEKANISMEnya (F1), atau pakai angka SHBB/AHBB AP75 -6.3% (F3) yang
+     LOLOS verifikasi.
+
+Ingat juga: semua angka gain (SAHI +5-7 AP; DivAlign +3.6-8.4) berasal dari domain LAIN
+(aerial/urban/wheat), bukan ayam -> selalu sebut "ekspektasi orde besaran, divalidasi
+empiris di data ayam".
+
+
+================================================================================
+J. RINGKASAN PRIORITAS (mana yang dipakai lebih dulu)
+================================================================================
+
+PALING TINGGI (no-retrain, muat CPU/6GB, langsung naikkan/menjelaskan skor):
+  D1/D2/D3 SAHI (untuk fum)   ->  angkat recall & lokalisasi objek padat
+  E1 + E4  Kalibrasi threshold ->  tekan over-detection fum
+  F7 TIDE + B2 multi-IoU       ->  buktikan fum "bukan buta" (pelaporan fair)
+  D5 (TTA+WBF, dari juara Wheat)->  add-on inference murah
+
+MENENGAH (light-retrain, HANYA jika CUDA RTX 3050 diaktifkan; tetap PIO-only):
+  C4/C2 resep augmentasi DG    ->  robustness umum lintas-domain
+  C1 NP / E2 TCD               ->  advanced, custom code (stretch)
+
+UNTUK NARASI/LIMITASI (nulis, bukan ngoding):
+  A1, B1, B2, G1, H1, F1/F2/F3 ->  framing kontribusi + jujurkan nestler sebagai ceiling
+
+================================================================================
+(FILE INI = rangkuman lit-review. Rencana eksekusi teknis: RENCANA_GENERALISASI_YOLOV8M.md)
+================================================================================

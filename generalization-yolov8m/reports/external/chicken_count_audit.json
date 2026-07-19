@@ -1,0 +1,83 @@
+{
+  "dataset_name": "chicken_count",
+  "root": "C:\\Arib\\MASSA AYAM\\data\\external\\chicken_count",
+  "counts": {
+    "images_total": 178,
+    "labels_total": 180,
+    "paired": 178,
+    "images_without_label": 0,
+    "labels_without_image": 2,
+    "total_valid_bbox": 3646,
+    "invalid_bbox_skipped": 0,
+    "unreadable_images": 0,
+    "unreadable_labels": 0
+  },
+  "class_distribution": {
+    "0": 3646
+  },
+  "num_classes_observed": 1,
+  "bbox_per_image": {
+    "n": 178,
+    "mean": 20.483146,
+    "median": 18.0,
+    "stdev": 13.353188,
+    "min": 5.0,
+    "max": 96.0,
+    "p05": 5.85,
+    "p95": 40.0
+  },
+  "bbox_width_norm": {
+    "n": 3646,
+    "mean": 0.077273,
+    "median": 0.067241,
+    "stdev": 0.044686,
+    "min": 0.010042,
+    "max": 0.365891,
+    "p05": 0.027071,
+    "p95": 0.166767
+  },
+  "bbox_height_norm": {
+    "n": 3646,
+    "mean": 0.09857,
+    "median": 0.082889,
+    "stdev": 0.060476,
+    "min": 0.018785,
+    "max": 0.480677,
+    "p05": 0.03743,
+    "p95": 0.217401
+  },
+  "bbox_area_norm": {
+    "n": 3646,
+    "mean": 0.009456,
+    "median": 0.00551,
+    "stdev": 0.012762,
+    "min": 0.000226,
+    "max": 0.149234,
+    "p05": 0.001153,
+    "p95": 0.02976
+  },
+  "top_resolutions": {
+    "1280x720": 41,
+    "1600x1200": 17,
+    "1280x960": 10,
+    "1024x768": 8,
+    "800x600": 5,
+    "750x562": 4,
+    "1000x750": 4,
+    "2048x1536": 4,
+    "900x570": 3,
+    "700x475": 3
+  },
+  "num_distinct_resolutions": 57,
+  "examples_images_without_label": [],
+  "examples_labels_without_image": [
+    "README.dataset",
+    "README.roboflow"
+  ],
+  "pipeline_readiness": {
+    "is_yolo_format": true,
+    "single_class": true,
+    "has_high_density": false,
+    "uniform_resolution": false
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "dataset_name": "nestler_yolo",
+  "root": "C:\\Arib\\MASSA AYAM\\data\\external\\nestler_yolo",
+  "counts": {
+    "images_total": 480,
+    "labels_total": 480,
+    "paired": 480,
+    "images_without_label": 0,
+    "labels_without_image": 0,
+    "total_valid_bbox": 4043,
+    "invalid_bbox_skipped": 0,
+    "unreadable_images": 0,
+    "unreadable_labels": 0
+  },
+  "class_distribution": {
+    "0": 4043
+  },
+  "num_classes_observed": 1,
+  "bbox_per_image": {
+    "n": 480,
+    "mean": 8.422917,
+    "median": 9.0,
+    "stdev": 3.603857,
+    "min": 1.0,
+    "max": 16.0,
+    "p05": 3.0,
+    "p95": 14.0
+  },
+  "bbox_width_norm": {
+    "n": 4043,
+    "mean": 0.035418,
+    "median": 0.033914,
+    "stdev": 0.018727,
+    "min": 0.000659,
+    "max": 0.106617,
+    "p05": 0.008161,
+    "p95": 0.066429
+  },
+  "bbox_height_norm": {
+    "n": 4043,
+    "mean": 0.084669,
+    "median": 0.087346,
+    "stdev": 0.039279,
+    "min": 0.001918,
+    "max": 0.177702,
+    "p05": 0.020352,
+    "p95": 0.14933
+  },
+  "bbox_area_norm": {
+    "n": 4043,
+    "mean": 0.003117,
+    "median": 0.002219,
+    "stdev": 0.002578,
+    "min": 3.5e-05,
+    "max": 0.011793,
+    "p05": 0.000397,
+    "p95": 0.008413
+  },
+  "top_resolutions": {
+    "1920x1080": 480
+  },
+  "num_distinct_resolutions": 1,
+  "examples_images_without_label": [],
+  "examples_labels_without_image": [],
+  "pipeline_readiness": {
+    "is_yolo_format": true,
+    "single_class": true,
+    "has_high_density": false,
+    "uniform_resolution": true
+  }
+}

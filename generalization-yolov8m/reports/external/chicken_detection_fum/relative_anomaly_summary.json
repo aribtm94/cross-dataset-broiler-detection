@@ -1,0 +1,51 @@
+{
+  "dataset_id": "chicken_detection_fum",
+  "mode": "relative",
+  "interpretation_warning": "Visual relative-size anomaly only. No Cobb500, no age metadata, no actual gram-weight claim.",
+  "total_images": 326,
+  "total_bboxes": 29355,
+  "median_bbox_per_image": 88.5,
+  "mean_bbox_per_image": 90.046,
+  "abnormal_images": 318,
+  "abnormal_image_rate_pct": 97.55,
+  "image_cv_median": 34.8218,
+  "candidate_bboxes_p97_plus": 1034,
+  "candidate_rate_pct": 3.52,
+  "critical_bboxes_p99_plus": 435,
+  "critical_rate_pct": 1.48,
+  "percentile_method": "T = perc(k, X), k=97 warning and k=99 critical. X = abs(log(radial_depth_corrected_minor_axis / image_median_corrected_minor_axis)).",
+  "percentile_context_counts": {
+    "image": 29355
+  },
+  "min_image_percentile_count": 20,
+  "camera_correction": {
+    "method": "Relative mode: radial correction by radius_norm and depth-light correction by bottom_y_norm. Values remain visual-size proxies, not grams.",
+    "bin_count": 6,
+    "radial_factors_by_bin": {
+      "1": 1.0402779220779221,
+      "3": 1.0336363636363637,
+      "5": 0.7855298701298701,
+      "4": 1.0220746753246752,
+      "2": 1.0334902597402598,
+      "0": 0.9990168831168832
+    },
+    "perspective_factors_by_bottom_y_bin": {
+      "2": 0.9919688311688313,
+      "1": 1.0199428571428573,
+      "0": 0.8301824675324676,
+      "5": 1.0429922077922078,
+      "4": 1.0772077922077923,
+      "3": 0.9847519480519481
+    },
+    "raw_minor_cv_pct": 37.7964,
+    "radial_minor_cv_pct": 37.1588,
+    "radial_depth_minor_cv_pct": 36.7325,
+    "radial_correction_effect_pct": 0.6376,
+    "depth_correction_effect_pct": 0.4263
+  },
+  "limitations": [
+    "Relative mode is not a calibrated weight estimator.",
+    "Sparse datasets may fall back to dataset/split-level percentile context.",
+    "Mixed-resolution datasets are valid but may show stronger domain shift."
+  ]
+}

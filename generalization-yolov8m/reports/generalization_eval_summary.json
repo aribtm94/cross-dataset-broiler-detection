@@ -1,0 +1,96 @@
+{
+  "pio_original_val": {
+    "n_images": 452,
+    "n_detections": 70177,
+    "precision": 0.9584311071179422,
+    "recall": 0.8874949270988972,
+    "map50": 0.8994111868338794,
+    "map50_95": 0.7087840988611022
+  },
+  "broiler_instance_seg": {
+    "n_images": 200,
+    "n_detections": 8489,
+    "precision": 0.8635855531176406,
+    "recall": 0.7666197175207015,
+    "map50": 0.8364025157141789,
+    "map50_95": 0.5789314071531709
+  },
+  "chicken_detection_fum": {
+    "n_images": 326,
+    "n_detections": 8956,
+    "precision": 0.5541071881913289,
+    "recall": 0.15084312723556464,
+    "map50": 0.13908811993209613,
+    "map50_95": 0.06144586929044423
+  },
+  "nestler_yolo": {
+    "n_images": 480,
+    "n_detections": 4274,
+    "precision": 0.0,
+    "recall": 0.0,
+    "map50": 0.0,
+    "map50_95": 0.0
+  },
+  "val_only": {
+    "_note": "Val-split-only re-test (except nestler). broiler has no valid/ folder so a deterministic 20% train-as-val split (seed=42) is used. imgsz=960, batch=1.",
+    "_model": "yolov8m (runs_compare/cmp_yolov8m/weights/best.pt) -- top-level entries above use yolo11m",
+    "pio_original_val": {
+      "n_images": 452,
+      "n_detections": 70273,
+      "val_source_note": "real val split (452 imgs)",
+      "precision": 0.9585647511758566,
+      "recall": 0.8877861871945193,
+      "map50": 0.8996968448933909,
+      "map50_95": 0.7102380863779526
+    },
+    "broiler_instance_seg": {
+      "n_images": 40,
+      "n_detections": 1855,
+      "val_source_note": "NO val folder in dataset; synthetic 20% of train as val (seed=42)",
+      "precision": 0.8151666820776602,
+      "recall": 0.7657657657657657,
+      "map50": 0.8051145689863666,
+      "map50_95": 0.5289387649532693
+    },
+    "chicken_detection_fum": {
+      "n_images": 18,
+      "n_detections": 3064,
+      "val_source_note": "real valid/ split only (18 imgs)",
+      "precision": 0.7343581641546264,
+      "recall": 0.8178897849469228,
+      "map50": 0.8418378785942671,
+      "map50_95": 0.37913802337716157
+    }
+  },
+  "val_only_occ": {
+    "_note": "Val-split-only re-test (except nestler). broiler has no valid/ folder so a deterministic 20% train-as-val split (seed=42) is used. imgsz=960, batch=1.",
+    "_model": "yolov8m + occlusion aug (erasing=0.4, mixup=0.1) -- cmp_yolov8m_occ_rect/weights/best.pt. Compare vs the 'val_only' block (plain yolov8m).",
+    "pio_original_val": {
+      "n_images": 452,
+      "n_detections": 70039,
+      "val_source_note": "real val split (452 imgs)",
+      "precision": 0.9600134577774135,
+      "recall": 0.8877317385167847,
+      "map50": 0.8997933238876175,
+      "map50_95": 0.7053956246384814
+    },
+    "broiler_instance_seg": {
+      "n_images": 40,
+      "n_detections": 1808,
+      "val_source_note": "NO val folder in dataset; synthetic 20% of train as val (seed=42)",
+      "precision": 0.826936220535934,
+      "recall": 0.7600758653390233,
+      "map50": 0.7973757098217675,
+      "map50_95": 0.5264348393010841
+    },
+    "chicken_detection_fum": {
+      "n_images": 18,
+      "n_detections": 3105,
+      "val_source_note": "real valid/ split only (18 imgs)",
+      "precision": 0.7579194636771581,
+      "recall": 0.8254437869822485,
+      "map50": 0.8563160347168844,
+      "map50_95": 0.40737627311222047
+    }
+  }
+}

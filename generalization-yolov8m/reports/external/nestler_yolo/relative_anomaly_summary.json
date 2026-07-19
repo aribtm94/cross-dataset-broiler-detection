@@ -1,0 +1,51 @@
+{
+  "dataset_id": "nestler_yolo",
+  "mode": "relative",
+  "interpretation_warning": "Visual relative-size anomaly only. No Cobb500, no age metadata, no actual gram-weight claim.",
+  "total_images": 480,
+  "total_bboxes": 4043,
+  "median_bbox_per_image": 9.0,
+  "mean_bbox_per_image": 8.4229,
+  "abnormal_images": 480,
+  "abnormal_image_rate_pct": 100.0,
+  "image_cv_median": 50.1476,
+  "candidate_bboxes_p97_plus": 122,
+  "candidate_rate_pct": 3.02,
+  "critical_bboxes_p99_plus": 41,
+  "critical_rate_pct": 1.01,
+  "percentile_method": "T = perc(k, X), k=97 warning and k=99 critical. X = abs(log(radial_depth_corrected_minor_axis / image_median_corrected_minor_axis)).",
+  "percentile_context_counts": {
+    "dataset_split": 4043
+  },
+  "min_image_percentile_count": 20,
+  "camera_correction": {
+    "method": "Relative mode: radial correction by radius_norm and depth-light correction by bottom_y_norm. Values remain visual-size proxies, not grams.",
+    "bin_count": 6,
+    "radial_factors_by_bin": {
+      "0": 1.6394803931108302,
+      "2": 0.9844117933249004,
+      "3": 1.1493101099542669,
+      "1": 0.9644283351172521,
+      "4": 0.6772151406052349,
+      "5": 0.55
+    },
+    "perspective_factors_by_bottom_y_bin": {
+      "2": 0.5775980575416297,
+      "5": 1.3333041263610452,
+      "3": 1.0836507157655342,
+      "4": 1.4394948362072995,
+      "1": 0.7475388258018287,
+      "0": 0.6097052821782949
+    },
+    "raw_minor_cv_pct": 57.499,
+    "radial_minor_cv_pct": 56.0624,
+    "radial_depth_minor_cv_pct": 51.7244,
+    "radial_correction_effect_pct": 1.4366,
+    "depth_correction_effect_pct": 4.338
+  },
+  "limitations": [
+    "Relative mode is not a calibrated weight estimator.",
+    "Sparse datasets may fall back to dataset/split-level percentile context.",
+    "Mixed-resolution datasets are valid but may show stronger domain shift."
+  ]
+}
