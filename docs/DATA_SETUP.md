@@ -30,13 +30,12 @@ or **manual** download + unzip.
 
 | Bundle | Required | Contents | Extracts to | Link |
 |--------|----------|----------|-------------|------|
-| `datasets-core.zip` | ✅ | PIO images/labels + external Roboflow datasets, `classes.txt`, `dataset.yaml`, `FilePrefixCode.xlsx` | `data/` | _paste link_ |
-| `weights-yolo.zip` | ✅ | All YOLO training runs + best/last checkpoints + base weights | `train model/` | _paste link_ |
-| `mowa-sam.zip` | ✅ | Vendored MOWA repo + `mowa_pretrained.pth` + `mobile_sam.pt` | `vendor/MOWA/`, `mobile_sam.pt` | _paste link_ |
-| `derived-data.zip` | ⬜ | Rectified / enhanced / augmented / mask variants | `data/` | _paste link_ |
-| `features.zip` | ⬜ | `bbox_features`, `weight_estimates*`, ensemble CSVs | `features/` | _paste link_ |
-| `papers.zip` | ⬜ | Reference papers (PDF) | repo root + `papers/` | _paste link_ |
-| `rilis_rectified_pio.zip` | ⬜ | Curated best rectified-PIO share package | `rilis_rectified_pio/` | _paste link_ |
+| `datasets-core.zip` | ✅ | PIO images/labels + external Roboflow datasets, `classes.txt`, `dataset.yaml`, `FilePrefixCode.xlsx` | `data/` | _[link](https://drive.google.com/file/d/16BnvB4BcsbdtVe6bZD7ZjFRZbjROwq06/view?usp=drive_link)_ |
+| `weights-yolo.zip` | ✅ | All YOLO training runs + best/last checkpoints + base weights | `train model/` | _[link](https://drive.google.com/file/d/1uagGtn12k257yg54E1JjrIf1q_oxlWkM/view?usp=drive_link)_ |
+| `mowa-sam.zip` | ✅ | Vendored MOWA repo + `mowa_pretrained.pth` + `mobile_sam.pt` | `vendor/MOWA/`, `mobile_sam.pt` | _[link](https://drive.google.com/file/d/1HeeZYWebd3_NbU5oSOi9aEnMkqxBfKTG/view?usp=drive_link)_ |
+| `derived-data.zip` | ⬜ | Rectified / enhanced / augmented / mask variants | `data/` | _[link](https://drive.google.com/file/d/19X5YSELCZtBWUzmJPaBtV0uli7uo5VPS/view?usp=drive_link)_ |
+| `features.zip` | ⬜ | `bbox_features`, `weight_estimates*`, ensemble CSVs | `features/` | _[link](https://drive.google.com/file/d/1kWrqSU9FgJYVVhw8nTTKr5HPwBazu1wi/view?usp=drive_link)_ |
+| `papers.zip` | ⬜ | Reference papers (PDF) | repo root + `papers/` | _[link](https://drive.google.com/file/d/1ISPTnFjXWQQUpVeahysiBMaeRhlCQ8D9/view?usp=drive_link)_ |
 
 Required bundles are everything you need to reproduce the evaluation. Optional
 bundles just let you skip recomputation — every derived artifact can be
